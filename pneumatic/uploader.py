@@ -5,13 +5,6 @@ import requests
 from .db import Database
 from .utils import Utils
 
-# TODO
-# Database methods to dump a CSV
-# test for status codes and react accordingly
-# multiprocessing
-# default upload current directory (but exclude .py)
-# exclude files of a certain size or filetype we don't want
-
 
 class DocumentCloudUploader(object):
     """

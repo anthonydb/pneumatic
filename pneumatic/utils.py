@@ -7,6 +7,7 @@ class Utils(object):
     """
 
     def __init__(self):
+        # These are file types we do not want to send to DocumentCloud.
         self.file_excludes = (
             'aiff',
             'DS_Store',
@@ -24,7 +25,6 @@ class Utils(object):
         """
         Remove prohibited file types and files over upload size limit.
         """
-        #TODO: Check file size; print list of excluded files.
         for x in doc_list:
             file_split = x['name'].split('.')
             if file_split[-1] in self.file_excludes:
