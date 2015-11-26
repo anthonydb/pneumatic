@@ -1,6 +1,6 @@
 import os
 import sqlite3
-from utils import Utils
+from .utils import Utils
 
 
 class Database(object):
@@ -49,4 +49,4 @@ class Database(object):
         """
         Prints name of the database.
         """
-        print 'Upload data will be stored in ' + self.db_full_path
+        print('Upload data will be stored in ' + self.db_full_path)

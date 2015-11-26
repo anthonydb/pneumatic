@@ -2,8 +2,8 @@ import os
 import sys
 import json
 import requests
-from db import Database
-from utils import Utils
+from .db import Database
+from .utils import Utils
 
 # TODO
 # Database methods to dump a CSV
@@ -27,8 +27,8 @@ class DocumentCloudUploader(object):
         if self.credential_test() == 200:
             pass
         else:
-            print 'Your username or password is incorrect.\n' +\
-                  'Please check them and try again.'
+            print('Your username or password is incorrect.\n' +
+                  'Please check them and try again.')
             sys.exit()
 
         self.db = Database()
@@ -48,8 +48,8 @@ class DocumentCloudUploader(object):
         Post the request.
         """
         r = requests.post(self.base_uri + 'upload.json', data=payload, files=upload)
-        print r.status_code
-        print r.text
+        print(r.status_code)
+        print(r.text)
         upload_response = json.loads(r.text)
         timestamp = self.utils.timestamp()
         self.db.insert_row(
@@ -80,13 +80,13 @@ class DocumentCloudUploader(object):
                 file_dict['name'] = f
                 file_dict['full_path'] = os.path.join(root, f)
                 files_dict_list.append(file_dict)
-        print files_dict_list
+        print(files_dict_list)
 
         # Remove files with prohibited formats
         documents = self.utils.sanitize_uploads(files_dict_list)
 
         for doc in documents:
-            print 'Uploading ' + doc['full_path']
+            print('Uploading ' + doc['full_path'])
             payload = {
                 'title': doc['name'],
                 'source': source,
@@ -100,5 +100,5 @@ class DocumentCloudUploader(object):
                 'secure': secure
             }
             upload = {'file': open(doc['full_path'], 'rb')}
-            print payload
+            print(payload)
             #self.request(payload, upload)
