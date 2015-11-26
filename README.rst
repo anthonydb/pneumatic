@@ -12,7 +12,7 @@ Features
 Usage
 -----
 
-You will need to have an active DocumentCloud account. Your
+You will need to have an active DocumentCloud account. Uploading all files in a directory (and all sub-directories below it), is as simple as running:
 
 .. code-block:: python
 
