@@ -101,4 +101,4 @@ class DocumentCloudUploader(object):
             }
             upload = {'file': open(doc['full_path'], 'rb')}
             print(payload)
-            #self.request(payload, upload)
+            self.request(payload, upload)
