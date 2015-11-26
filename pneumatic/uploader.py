@@ -72,18 +72,23 @@ class DocumentCloudUploader(object):
         if not file_directory:
             file_directory = '.'
 
-# MAKE THIS A LIST OF DICTS WITH FULL PATH, FILE NAME SEPARATE
+        # Create a list of dictionaries that includes file name and full path
+        files_dict_list = []
         for root, dir, files in os.walk(file_directory):
             for f in files:
-                documents.append(os.path.join(root, f))
+                file_dict = {}
+                file_dict['name'] = f
+                file_dict['full_path'] = os.path.join(root, f)
+                files_dict_list.append(file_dict)
+        print files_dict_list
 
         # Remove files with prohibited formats
-        documents = self.utils.sanitize_uploads(documents)
+        documents = self.utils.sanitize_uploads(files_dict_list)
 
         for doc in documents:
-            print 'Uploading ' + doc
+            print 'Uploading ' + doc['full_path']
             payload = {
-                'title': doc,
+                'title': doc['name'],
                 'source': source,
                 'description': description,
                 'language': language,
@@ -94,6 +99,6 @@ class DocumentCloudUploader(object):
                 'data': data,
                 'secure': secure
             }
-            upload = {'file': open(doc, 'rb')}
+            upload = {'file': open(doc['full_path'], 'rb')}
             print payload
             #self.request(payload, upload)

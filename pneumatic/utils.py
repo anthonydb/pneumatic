@@ -26,7 +26,7 @@ class Utils(object):
         """
         #TODO: Check file size; print list of excluded files.
         for x in doc_list:
-            file_split = x.split('.')
+            file_split = x['name'].split('.')
             if file_split[-1] in self.file_excludes:
                 doc_list.remove(x)
         return doc_list
