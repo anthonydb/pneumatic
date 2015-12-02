@@ -32,7 +32,6 @@ class Utils(object):
             if not file_split[-1] in self.file_excludes:
                 if not os.path.getsize(x['full_path']) > 400000000:
                     doc_list_clean.append(x)
-            print(os.path.getsize(x['full_path']))
         return doc_list_clean
 
     def timestamp(self):
