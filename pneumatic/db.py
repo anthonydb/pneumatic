@@ -25,23 +25,28 @@ class Database(object):
         if not os.path.exists(self.db_full_path):
             conn = sqlite3.connect(self.db_full_path)
             cur = conn.cursor()
-            cur.execute('''CREATE TABLE uploads
-                (file_name Text, upload_time Text, result Text, canonical_url Text)
-            ''')
+            cur.execute('''
+                CREATE TABLE uploads
+                (
+                    file_name Text, full_path Text, upload_time Text,
+                    result Text, canonical_url Text, exclude_flag Text,
+                    exclude_reason Text
+                )
+                       ''')
             conn.commit()
             conn.close()
         else:
             pass
 
-    def insert_row(self, file_name, up_time, result, canonical_url):
+    def insert_row(self, file_name, full_path, up_time, result, canonical_url, exclude_flag, exclude_reason):
         """
         Inserts a row in the table.
         """
         conn = sqlite3.connect(self.db_full_path)
         cur = conn.cursor()
         cur.execute('''
-            INSERT INTO uploads VALUES (?,?,?,?);
-            ''', (file_name, up_time, result, canonical_url))
+            INSERT INTO uploads VALUES (?,?,?,?,?,?,?);
+            ''', (file_name, full_path, up_time, result, canonical_url, exclude_flag, exclude_reason))
         conn.commit()
         conn.close()
 

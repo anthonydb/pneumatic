@@ -24,15 +24,19 @@ class Utils(object):
 
     def sanitize_uploads(self, doc_list):
         """
-        Remove prohibited file types and files over 400MB upload size limit.
+        Flag prohibited file types and files over 400MB upload size limit.
         """
-        doc_list_clean = []
         for x in doc_list:
             file_split = x['name'].split('.')
-            if not file_split[-1] in self.file_excludes:
-                if not os.path.getsize(x['full_path']) > 400000000:
-                    doc_list_clean.append(x)
-        return doc_list_clean
+            if file_split[-1] in self.file_excludes:
+                x['exclude_flag'] = True
+                x['exclude_reason'] = 'Prohibited file type'
+            elif os.path.getsize(x['full_path']) > 400000000:
+                x['exclude_flag'] = True
+                x['exclude_reason'] = 'File over 400MB'
+            else:
+                x['exclude_flag'] = False
+        return doc_list
 
     def timestamp(self):
         self.time = time.strftime("%Y%m%dT%H%M%S")

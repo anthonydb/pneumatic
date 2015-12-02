@@ -36,20 +36,35 @@ class DocumentCloudUploader(object):
         r = requests.get(self.base_uri + 'search.json?q=test')
         return r.status_code
 
-    def request(self, payload, upload):
+    def request(self, full_path, payload, upload):
         """
-        Post the request.
+        Post the request and log response to the database.
         """
         r = requests.post(self.base_uri + 'upload.json', data=payload, files=upload)
-        print(r.status_code)
-        print(r.text)
         upload_response = json.loads(r.text)
         timestamp = self.utils.timestamp()
         self.db.insert_row(
             upload_response['title'],
+            full_path,
             timestamp,
             r.status_code,
-            upload_response['canonical_url'])
+            upload_response['canonical_url'],
+            None,
+            None)
+
+    def log_exclusion(self, name, full_path, exclude_reason):
+        """
+        Log an excluded file to the database.
+        """
+        timestamp = self.utils.timestamp()
+        self.db.insert_row(
+            name,
+            full_path,
+            timestamp,
+            None,
+            None,
+            'Y',
+            exclude_reason)
 
     def upload(self, file_directory=None, title=None, source=None,
                description=None, language=None, related_article=None,
@@ -65,33 +80,44 @@ class DocumentCloudUploader(object):
         if not file_directory:
             file_directory = '.'
 
-        # Create a list of dictionaries that includes file name and full path
+        # Create a list of dictionaries that includes file name and full path,
+        # plus placeholders for exclusion information.
         files_dict_list = []
         for root, dir, files in os.walk(file_directory):
             for f in files:
                 file_dict = {}
                 file_dict['name'] = f
                 file_dict['full_path'] = os.path.join(root, f)
+                file_dict['exclude_flag'] = None
+                file_dict['exclude_reason'] = None
                 files_dict_list.append(file_dict)
-        print(files_dict_list)
+        #print(files_dict_list) # for testing for now
 
-        # Remove files with prohibited formats
+        # Check list of files for prohibited formats, size
         documents = self.utils.sanitize_uploads(files_dict_list)
 
+        # Upload each file, except those not permitted. We log those.
         for doc in documents:
-            print('Uploading ' + doc['full_path'])
-            payload = {
-                'title': doc['name'],
-                'source': source,
-                'description': description,
-                'language': language,
-                'related_article': related_article,
-                'published_url': published_url,
-                'access': access,
-                'project': project,
-                'data': data,
-                'secure': secure
-            }
-            upload = {'file': open(doc['full_path'], 'rb')}
-            print(payload)
-            self.request(payload, upload)
+            if doc['exclude_flag']:
+                self.log_exclusion(
+                    doc['name'],
+                    doc['full_path'],
+                    doc['exclude_reason'])
+            else:
+                print('Uploading ' + doc['full_path'])
+                full_path = doc['full_path']
+                payload = {
+                    'title': doc['name'],
+                    'source': source,
+                    'description': description,
+                    'language': language,
+                    'related_article': related_article,
+                    'published_url': published_url,
+                    'access': access,
+                    'project': project,
+                    'data': data,
+                    'secure': secure
+                }
+                upload = {'file': open(doc['full_path'], 'rb')}
+                print(payload)
+                self.request(full_path, payload, upload)
