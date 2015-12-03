@@ -5,7 +5,7 @@ import tempfile
 from pneumatic.utils import *
 
 
-class TestFileTypeSanitize(unittest.TestCase):
+class TestFileSanitize(unittest.TestCase):
 
     def test_flag_file_type(self):
         """
