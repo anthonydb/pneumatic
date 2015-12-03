@@ -26,7 +26,6 @@ class TestFileTypeSanitize(unittest.TestCase):
         sanitize_uploads() should flag a file larger than 400MB
         with True in the returned exclude_flag field.
         """
-
         self.utils = Utils()
         with tempfile.NamedTemporaryFile(suffix=".pdf") as temp:
             temp.write("0" * 410000000)
