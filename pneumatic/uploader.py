@@ -38,22 +38,6 @@ class DocumentCloudUploader(object):
         r = requests.get(self.base_uri + 'search.json?q=test')
         return r.status_code
 
-    def request(self, full_path, payload, upload):
-        """
-        Post the request and log response to the database.
-        """
-        r = requests.post(self.base_uri + 'upload.json', data=payload, files=upload)
-        upload_response = json.loads(r.text)
-        timestamp = self.utils.timestamp()
-        self.db.insert_row(
-            upload_response['title'],
-            full_path,
-            timestamp,
-            r.status_code,
-            upload_response['canonical_url'],
-            None,
-            None)
-
     def log_exclusion(self, name, full_path, exclude_reason):
         """
         Log an excluded file to the database.
@@ -68,16 +52,12 @@ class DocumentCloudUploader(object):
             'Y',
             exclude_reason)
 
-    def upload(self, file_directory=None, title=None, source=None,
-               description=None, language=None, related_article=None,
-               published_url=None, access='private', project=None,
-               data=None, secure=False):
+    def build_file_list(self, file_directory):
         """
-        Upload one or more documents with associated metadata and options.
+        Walk the supplied or current directory, including sub-directories,
+        and build a list of files for the upload
         """
 
-        # Walk the supplied or current directory, including sub-directories,
-        # and build a list of files for the upload
         documents = []
         if not file_directory:
             file_directory = '.'
@@ -97,6 +77,32 @@ class DocumentCloudUploader(object):
 
         # Check list of files for prohibited formats, size
         documents = self.utils.sanitize_uploads(files_dict_list)
+        return documents
+
+    def request(self, full_path, payload, upload):
+        """
+        Post the request and log response to the database.
+        """
+        r = requests.post(self.base_uri + 'upload.json', data=payload, files=upload)
+        upload_response = json.loads(r.text)
+        timestamp = self.utils.timestamp()
+        self.db.insert_row(
+            upload_response['title'],
+            full_path,
+            timestamp,
+            r.status_code,
+            upload_response['canonical_url'],
+            None,
+            None)
+
+    def upload(self, file_directory=None, title=None, source=None,
+               description=None, language=None, related_article=None,
+               published_url=None, access='private', project=None,
+               data=None, secure=False):
+        """
+        Upload one or more documents with associated metadata and options.
+        """
+        documents = self.build_file_list(file_directory)
 
         # Upload each file, except those not permitted. We log those.
         for doc in documents:
