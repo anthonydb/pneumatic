@@ -55,7 +55,7 @@ class DocumentCloudUploader(object):
     def build_file_list(self, file_directory):
         """
         Walk the supplied or current directory, including sub-directories,
-        and build a list of files for the upload
+        and build a list of files for the upload.
         """
 
         documents = []
@@ -102,9 +102,15 @@ class DocumentCloudUploader(object):
         """
         Upload one or more documents with associated metadata and options.
         """
+        # Start with a list of files in the supplied directory. Each
+        # file is a dict.
         documents = self.build_file_list(file_directory)
 
-        # Upload each file, except those not permitted. We log those.
+        # Appropriately process each file. Prohibited files will be
+        # excluded and logged. The rest get added data and in the
+        # list to be uploaded.
+        # cleared_uploads = []
+
         for doc in documents:
             if doc['exclude_flag']:
                 self.log_exclusion(
@@ -113,8 +119,8 @@ class DocumentCloudUploader(object):
                     doc['exclude_reason'])
             else:
                 print('Uploading ' + doc['full_path'])
-                full_path = doc['full_path']
-                payload = {
+                #full_path = doc['full_path']
+                doc['payload'] = {
                     'title': doc['name'],
                     'source': source,
                     'description': description,
@@ -126,6 +132,6 @@ class DocumentCloudUploader(object):
                     'data': data,
                     'secure': secure
                 }
-                upload = {'file': open(doc['full_path'], 'rb')}
-                print(payload)
-                self.request(full_path, payload, upload)
+                doc['upload'] = {'file': open(doc['full_path'], 'rb')}
+                print(doc['payload'])
+                self.request(doc['full_path'], doc['payload'], doc['upload'])
