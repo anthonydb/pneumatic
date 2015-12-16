@@ -3,6 +3,7 @@
 import os
 import sys
 import json
+from multiprocessing import Pool
 import requests
 from .db import Database
 from .utils import Utils
@@ -79,16 +80,18 @@ class DocumentCloudUploader(object):
         documents = self.utils.sanitize_uploads(files_dict_list)
         return documents
 
-    def request(self, full_path, payload, upload):
+    def request(self, upload_dict):
         """
         Post the request and log response to the database.
         """
-        r = requests.post(self.base_uri + 'upload.json', data=payload, files=upload)
+        files = {'file': open(upload_dict['full_path'], 'rb')}
+
+        r = requests.post(self.base_uri + 'upload.json', data=upload_dict['payload'], files=files)
         upload_response = json.loads(r.text)
         timestamp = self.utils.timestamp()
         self.db.insert_row(
             upload_response['title'],
-            full_path,
+            upload_dict['full_path'],
             timestamp,
             r.status_code,
             upload_response['canonical_url'],
@@ -109,7 +112,7 @@ class DocumentCloudUploader(object):
         # Appropriately process each file. Prohibited files will be
         # excluded and logged. The rest get added data and in the
         # list to be uploaded.
-        # cleared_uploads = []
+        cleared_uploads = []
 
         for doc in documents:
             if doc['exclude_flag']:
@@ -119,7 +122,6 @@ class DocumentCloudUploader(object):
                     doc['exclude_reason'])
             else:
                 print('Uploading ' + doc['full_path'])
-                #full_path = doc['full_path']
                 doc['payload'] = {
                     'title': doc['name'],
                     'source': source,
@@ -132,6 +134,9 @@ class DocumentCloudUploader(object):
                     'data': data,
                     'secure': secure
                 }
-                doc['upload'] = {'file': open(doc['full_path'], 'rb')}
-                print(doc['payload'])
-                self.request(doc['full_path'], doc['payload'], doc['upload'])
+                # print(doc['payload'])
+                cleared_uploads.append(doc)
+
+        # Create pool of workers. Just 4 for now, please.
+        p = Pool(processes=4)
+        p.map(self.request, cleared_uploads)

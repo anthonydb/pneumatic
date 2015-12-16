@@ -6,6 +6,7 @@ pneumatic is a library intended to add some luxury and safeguards to the process
 Features
 --------
 
+- Multiprocessing for faster uploading.
 - Catalogs the API response for each upload in a SQLite database along with the file's canonical URL.
 - Prevents inadvertent submission of files that DocumentCloud doesn't handle, such as audio.
 
