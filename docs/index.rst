@@ -1,9 +1,7 @@
-pneumatic
-=========
-
 .. include:: ../README.rst
 
-Contents:
+Table of contents
+=================
 
 .. toctree::
    :maxdepth: 2
