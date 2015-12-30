@@ -1,6 +1,8 @@
 pneumatic
 =========
 
+.. include:: ../README.rst
+
 Contents:
 
 .. toctree::
