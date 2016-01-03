@@ -86,6 +86,7 @@ class DocumentCloudUploader(object):
         """
         files = {'file': open(upload_dict['full_path'], 'rb')}
 
+        print('Uploading ' + upload_dict['full_path'])
         r = requests.post(self.base_uri + 'upload.json', data=upload_dict['payload'], files=files)
         upload_response = json.loads(r.text)
         timestamp = self.utils.timestamp()
@@ -121,7 +122,6 @@ class DocumentCloudUploader(object):
                     doc['full_path'],
                     doc['exclude_reason'])
             else:
-                print('Uploading ' + doc['full_path'])
                 doc['payload'] = {
                     'title': doc['name'],
                     'source': source,
@@ -137,6 +137,12 @@ class DocumentCloudUploader(object):
                 # print(doc['payload'])
                 cleared_uploads.append(doc)
 
-        # Create pool of workers. Just 4 for now, please.
-        p = Pool(processes=4)
-        p.map(self.request, cleared_uploads)
+        # Support multiprocessing on Linux-based systems
+        if os.name == 'posix':
+            # Create pool of workers. Just 4 for now, please.
+            p = Pool(processes=4)
+            p.map(self.request, cleared_uploads)
+        # Otherwise, upload sequentially
+        elif os.name == 'nt':
+            for upload_dict in cleared_uploads:
+                self.request(upload_dict)
