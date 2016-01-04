@@ -12,16 +12,21 @@ class Utils(object):
     def __init__(self):
         # These are file types we do not want to send to DocumentCloud.
         self.file_excludes = (
+            'accdb',
             'aiff',
-            'DS_Store',
+            'ds_store',
+            'exe',
             'flac',
             'mid',
             'mdb',
+            'mov',
             'mp3',
+            'mpa',
             'ogg',
             'pst',
             'wav',
-            'wma'
+            'wma',
+            'zip'
         )
 
     def file_directory_check(self, file_directory):
@@ -34,7 +39,7 @@ class Utils(object):
         """
         for x in doc_list:
             file_split = x['name'].split('.')
-            if file_split[-1] in self.file_excludes:
+            if file_split[-1].lower() in self.file_excludes:
                 x['exclude_flag'] = True
                 x['exclude_reason'] = 'Prohibited file type'
             elif os.path.getsize(x['full_path']) > 400000000:
