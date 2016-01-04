@@ -27,8 +27,8 @@ class TestFileSanitize(unittest.TestCase):
         with True in the returned exclude_flag field.
         """
         self.utils = Utils()
-        with tempfile.NamedTemporaryFile(suffix=".pdf") as temp:
-            temp.write("0" * 410000000)
+        with tempfile.NamedTemporaryFile(suffix='.pdf') as temp:
+            temp.write(b'0' * 410000000)
             tempname = temp.name
             files_dict_list = [{'name': tempname,
                                 'full_path': tempname,
