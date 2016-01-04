@@ -60,8 +60,17 @@ class DocumentCloudUploader(object):
         """
 
         documents = []
+
+        # If no directory supplied, use the current directory.
+        # If directory supplied, check that it exists.
         if not file_directory:
             file_directory = '.'
+        else:
+            directory_exists = self.utils.file_directory_check(file_directory)
+            if not directory_exists:
+                print('The file directory you supplied does not exist.\n' +
+                      'Please check it and try again.')
+                sys.exit()
 
         # Create a list of dictionaries that includes file name and full path,
         # plus placeholders for exclusion information.

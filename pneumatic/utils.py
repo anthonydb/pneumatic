@@ -24,6 +24,10 @@ class Utils(object):
             'wma'
         )
 
+    def file_directory_check(self, file_directory):
+        dir_exists = os.path.isdir(file_directory)
+        return dir_exists
+
     def sanitize_uploads(self, doc_list):
         """
         Flag prohibited file types and files over 400MB upload size limit.
