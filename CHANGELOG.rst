@@ -6,7 +6,8 @@ Development
 
 * Removed multiprocessing support for Windows for now.
 * Report when file directory does not exist.
-
+* Better testing for prohibited file types.
+* Only create database after file path verified.
 
 0.1.1 - December 31, 2015
 -------------------------

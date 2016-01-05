@@ -28,7 +28,6 @@ class DocumentCloudUploader(object):
             sys.exit()
 
         self.db = Database()
-        self.db.print_db_name()
         self.utils = Utils()
 
     def credential_test(self):
@@ -118,6 +117,10 @@ class DocumentCloudUploader(object):
         # Start with a list of files in the supplied directory. Each
         # file is a dict.
         documents = self.build_file_list(file_directory)
+
+        # Make the database
+        self.db.make_db()
+        self.db.print_db_name()
 
         # Appropriately process each file. Prohibited files will be
         # excluded and logged. The rest get added data and in the

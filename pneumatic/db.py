@@ -11,8 +11,10 @@ class Database(object):
     """
 
     def __init__(self):
-        # Create a sqlite db whose name includes a timestamp.
         self.utils = Utils()
+
+    def make_db(self):
+        # Create a sqlite db whose name includes a timestamp.
         timestamp = self.utils.timestamp()
         self.db_name = 'dc-upload-' + timestamp + '.db'
 
