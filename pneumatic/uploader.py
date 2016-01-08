@@ -95,7 +95,7 @@ class DocumentCloudUploader(object):
         files = {'file': open(upload_dict['full_path'], 'rb')}
 
         print('Uploading ' + upload_dict['full_path'])
-        r = requests.post(self.base_uri + 'upload.json', data=upload_dict['payload'], files=files)
+        r = requests.post(self.base_uri + 'upload.json', params=upload_dict['payload'], files=files)
         upload_response = json.loads(r.text)
         timestamp = self.utils.timestamp()
         self.db.insert_row(
@@ -143,9 +143,12 @@ class DocumentCloudUploader(object):
                     'published_url': published_url,
                     'access': access,
                     'project': project,
-                    'data': data,
                     'secure': secure
                 }
+                # Thank you to Ben Welsh (@palewire) for the following two lines:
+                for key, value in data.items():
+                    doc['payload']['data[%s]' % key] = value
+
                 # print(doc['payload'])
                 cleared_uploads.append(doc)
 
