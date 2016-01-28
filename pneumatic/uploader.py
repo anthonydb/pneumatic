@@ -110,7 +110,7 @@ class DocumentCloudUploader(object):
     def upload(self, file_directory=None, title=None, source=None,
                description=None, language=None, related_article=None,
                published_url=None, access='private', project=None,
-               data=None, secure=False):
+               data=None, secure=False, force_ocr=False):
         """
         Upload one or more documents with associated metadata and options.
         """
@@ -143,7 +143,8 @@ class DocumentCloudUploader(object):
                     'published_url': published_url,
                     'access': access,
                     'project': project,
-                    'secure': secure
+                    'secure': secure,
+                    'force_ocr': force_ocr
                 }
                 # Thank you to Ben Welsh (@palewire) for the following two lines:
                 for key, value in data.items():
