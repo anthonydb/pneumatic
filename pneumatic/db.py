@@ -1,20 +1,23 @@
 #!/usr/bin/env python
 
 import os
+import sys
+import csv
 import sqlite3
 from .utils import Utils
 
 
 class Database(object):
     """
-    A database to store results of file upload attempts to DocumentCloud.
+    A SQLite database to store results of file upload attempts to
+    DocumentCloud, along with database-related utilities.
     """
 
     def __init__(self):
         self.utils = Utils()
 
     def make_db(self):
-        # Create a sqlite db whose name includes a timestamp.
+        # Create a SQLite db whose name includes a timestamp.
         timestamp = self.utils.timestamp()
         self.db_name = 'dc-upload-' + timestamp + '.db'
 
@@ -54,8 +57,53 @@ class Database(object):
         conn.commit()
         conn.close()
 
+    def dump_to_csv(self, db_name=None):
+        """
+        Outputs the contents of a SQLite database to CSV.
+        """
+        timestamp = self.utils.timestamp()
+
+        # We can pass in a db name or use the one in the current session.
+        # Check if it exists, first.
+        if db_name:
+            if os.path.isfile(db_name):
+                db = db_name
+            else:
+                print('The database file specified does not exist.')
+                sys.exit()
+        else:
+            db = self.db_full_path
+
+        # Create an output folder and CSV file name.
+        if not os.path.isdir('pneumatic_csv'):
+            os.mkdir('pneumatic_csv')
+        else:
+            pass
+        self.csv_name = 'dc-output' + timestamp + '.csv'
+        self.csv_full_path = os.path.join('pneumatic_csv', self.csv_name)
+
+        # Query the database and write the rows to the CSV.
+        row_counter = 0
+        with open(self.csv_full_path, 'w') as csvfile:
+            header_row = ('file_name', 'full_path', 'upload_time',
+                          'result', 'canonical_url', 'exclude_flag',
+                          'exclude_reason')
+
+            writer = csv.writer(csvfile, delimiter=',', quotechar='"')
+            writer.writerow(header_row)
+
+            # Query the database and write rows to CSV.
+            conn = sqlite3.connect(db)
+            cur = conn.cursor()
+            for row in cur.execute('SELECT * FROM uploads;'):
+                writer.writerow(row)
+            conn.close()
+            row_counter += 1
+
+        print(str(row_counter) + ' database records output to ' + self.csv_full_path)
+
     def print_db_name(self):
         """
         Prints name of the database.
         """
-        print('Upload data will be stored in ' + self.db_full_path)
+        print('Upload response data is stored in ' + self.db_full_path)

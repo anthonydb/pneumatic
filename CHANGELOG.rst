@@ -4,6 +4,7 @@ Changelog
 Development
 -------------------------
 
+* Add ``dump_to_csv`` database function.
 * Removed multiprocessing support for Windows for now.
 * Report when file directory does not exist.
 * Better testing for prohibited file types.
