@@ -8,9 +8,10 @@ pneumatic's name is inspired by the newsrooms of yore, which featured a `series 
 Features
 --------
 
-- Multiprocessing for faster submission of files to DocumentCloud's API.
 - Catalogs the API response for each upload in a SQLite database along with the file's canonical URL.
-- Prevents inadvertent submission of files that DocumentCloud doesn't handle, such as audio.
+- Dumps the SQLite data to a CSV if you wish.
+- Multiprocessing (under Mac/Linux) for faster submission of files to DocumentCloud's API.
+- Prevents inadvertent submission of file types DocumentCloud doesn't handle, such as audio.
 
 Links
 -----
@@ -22,14 +23,17 @@ Links
 Basic Usage
 -----------
 
-You will need an active DocumentCloud account. Uploading all files in a directory (and all sub-directories below it), is as simple as running:
+You will need an active DocumentCloud account. Example use: To upload all files in a directory (and all sub-directories below it), assign them to an existing project, set the files to public access, and tag each with metadata, run the following code:
 
 .. code-block:: python
 
     from pneumatic import DocumentCloudUploader
 
     client = DocumentCloudUploader('person@example.com', 'your-password')
-    client.upload(file_directory='/files', project='17477-loudoun-county-government')
-
+    client.upload(
+        file_directory='/govfiles',
+        project='17477-loudoun-county-government',
+        access='public',
+        data={'type': 'government', 'action': 'lawsuit'})
 
 .. _`series of pneumatic tubes`: http://evolvingnewsroom.nz/wp-content/uploads/2008/10/newsroom-tubes1.jpg

@@ -4,12 +4,12 @@ Changelog
 Development
 -------------------------
 
-* Add ``dump_to_csv`` database function.
+* ``dump_to_csv`` outputs contents of SQLite database.
+* Add ``force_ocr`` parameter to upload options.
 * Removed multiprocessing support for Windows for now.
-* Report when file directory does not exist.
+* Report when upload file directory does not exist.
 * Better testing for prohibited file types.
 * Only create database after file path verified.
-* Add ``force_ocr`` parameter.
 
 0.1.1 - December 31, 2015
 -------------------------
