@@ -41,7 +41,7 @@ DocumentCloud accepts a variety of file types for upload. In addition to PDFs, u
 Upload results
 --------------
 
-DocumentCloud's API returns data for each file uploaded, and pneumatic catalogs key pieces of this data in a SQLite database that is automatically created under a `pneumatic_db` directory in the directory specified for uploads. See the database features documentation for additional information.
+DocumentCloud's API returns data for each file uploaded, and pneumatic catalogs key pieces of this data in a SQLite database that is automatically created under a ``pneumatic_db`` directory in the directory specified for uploads. See the database features documentation for additional information.
 
 Multiprocessing support
 -----------------------
