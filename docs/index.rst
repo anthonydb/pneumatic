@@ -1,3 +1,7 @@
+===================
+pneumatic |release|
+===================
+
 .. include:: ../README.rst
 
 Table of contents
@@ -8,6 +12,7 @@ Table of contents
 
    installation
    uploading
+   database
    changelog
 
 License
