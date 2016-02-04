@@ -1,8 +1,8 @@
 Changelog
 =========
 
-Development
--------------------------
+0.1.2 - February 4, 2016
+------------------------
 
 * ``dump_to_csv`` outputs contents of SQLite database.
 * Add ``force_ocr`` parameter to upload options.

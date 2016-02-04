@@ -9,7 +9,7 @@ def readme():
 
 setup(
     name='pneumatic',
-    version='0.1.1',
+    version='0.1.2',
     description='A bulk upload library for DocumentCloud.',
     long_description=readme(),
     classifiers=[
@@ -18,6 +18,7 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Operating System :: OS Independent',
+        'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
     ],
