@@ -36,4 +36,4 @@ You will need an active DocumentCloud account. Example use: To upload all files 
         access='public',
         data={'type': 'government', 'action': 'lawsuit'})
 
-.. _`series of pneumatic tubes`: http://evolvingnewsroom.nz/wp-content/uploads/2008/10/newsroom-tubes1.jpg
+.. _`series of pneumatic tubes`: https://en.wikipedia.org/wiki/Pneumatic_tube
