@@ -1,7 +1,7 @@
 Using pneumatic with python-documentcloud
 =========================================
 
-pneumatic happily coexists with `python-documentcloud <http://python-documentcloud.readthedocs.org/en/latest/>`_, a full-featured wrapper for the `DocumentCloud API <https://www.documentcloud.org/help/api`_. python-documentcloud offers extensive methods for interacting with documents, projects, annotations, entities and other aspects of the platform.
+pneumatic happily coexists with `python-documentcloud <http://python-documentcloud.readthedocs.org/en/latest/>`_, a full-featured wrapper for the `DocumentCloud API <https://www.documentcloud.org/help/api>`_. python-documentcloud offers extensive methods for interacting with documents, projects, annotations, entities and other aspects of the platform.
 
 For example, you can create a project with python-documentcloud, then use pneumatic to upload files and capture the results data:
 
