@@ -1,5 +1,5 @@
-Using pneumatic with python-documentcloud
-=========================================
+Use With python-documentcloud
+=============================
 
 pneumatic happily coexists with `python-documentcloud <http://python-documentcloud.readthedocs.org/en/latest/>`_, a full-featured wrapper for the `DocumentCloud API <https://www.documentcloud.org/help/api>`_. python-documentcloud offers extensive methods for interacting with documents, projects, annotations, entities and other aspects of the platform.
 
@@ -19,9 +19,9 @@ For example, you can create a project with python-documentcloud, then use pneuma
     project = dc_client.projects.create('Loudoun Fire')
 
     # Using pneumatic, upload your files. Add them to the project id obtained when
-    # it was created just now.
+    # the project was created just now.
     uploader.upload(
-        file_directory='/Users/adebarros/Development/python/pneumatic-test/files',
+        file_directory='/path-to/files',
         project=project.id,
         source='Loudoun County Fire and Rescue',
         data={'topic': 'fires'})
