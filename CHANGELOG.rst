@@ -1,6 +1,11 @@
 Changelog
 =========
 
+Development
+-----------
+
+* More comprehensive file exclusion list.
+
 0.1.2 - February 4, 2016
 ------------------------
 
