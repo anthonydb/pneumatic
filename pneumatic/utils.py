@@ -11,25 +11,7 @@ class Utils(object):
     """
 
     def __init__(self):
-        # These are file types we do not want to send to DocumentCloud.
         self.file_excludes = file_excludes
-        # self.file_excludes = (
-        #     'accdb',
-        #     'aiff',
-        #     'ds_store',
-        #     'exe',
-        #     'flac',
-        #     'mid',
-        #     'mdb',
-        #     'mov',
-        #     'mp3',
-        #     'mpa',
-        #     'ogg',
-        #     'pst',
-        #     'wav',
-        #     'wma',
-        #     'zip'
-        # )
 
     def file_directory_check(self, file_directory):
         dir_exists = os.path.isdir(file_directory)
