@@ -18,7 +18,7 @@ After you initiate a ``DocumentCloudUploader`` object and begin the upload, you 
 
 .. code-block:: python
 
-    client.db.print_db_name()
+    uploader.db.print_db_name()
 
 
 Viewing database contents
@@ -30,7 +30,7 @@ pneumatic also provides a method to dump the database to a CSV file, which you c
 
 .. code-block:: python
 
-    client.db.dump_to_csv()
+    uploader.db.dump_to_csv()
 
 If you're coming back to an old database, or you forgot to dump the CSV while the object was alive, you can still dump to a CSV by importing a ``Database()`` object:
 

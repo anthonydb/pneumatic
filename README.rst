@@ -29,8 +29,8 @@ You will need an active DocumentCloud account. Example use: To upload all files 
 
     from pneumatic import DocumentCloudUploader
 
-    client = DocumentCloudUploader('person@example.com', 'your-password')
-    client.upload(
+    uploader = DocumentCloudUploader('person@example.com', 'your-password')
+    uploader.upload(
         file_directory='/govfiles',
         project='17477-loudoun-county-government',
         access='public',

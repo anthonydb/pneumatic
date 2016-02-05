@@ -12,7 +12,7 @@ To create an upload client, import the ``DocumentCloudUploader`` class in your P
 
     from pneumatic import DocumentCloudUploader
 
-    client = DocumentCloudUploader('person@example.com', 'your-password')
+    uploader = DocumentCloudUploader('person@example.com', 'your-password')
 
 Start an upload
 ---------------
@@ -23,7 +23,7 @@ For example, after you import pneumatic and creat a client as shown above, you c
 
 .. code-block:: python
 
-    client.upload(
+    uploader.upload(
         file_directory='/govfiles',
         project='17477-loudoun-county-government',
         access='public',
