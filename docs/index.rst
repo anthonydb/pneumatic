@@ -13,6 +13,7 @@ Table of contents
    installation
    uploading
    database
+   pythondocumentcloud
    changelog
 
 License
