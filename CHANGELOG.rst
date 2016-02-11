@@ -5,6 +5,7 @@ Development
 -----------
 
 * More comprehensive file exclusion list.
+* Record pdf and text URLs in database.
 
 0.1.2 - February 4, 2016
 ------------------------

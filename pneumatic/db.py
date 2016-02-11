@@ -36,8 +36,8 @@ class Database(object):
                 CREATE TABLE uploads
                 (
                     file_name Text, full_path Text, upload_time Text,
-                    result Text, canonical_url Text, exclude_flag Text,
-                    exclude_reason Text
+                    result Text, canonical_url Text, pdf_url Text, text_url,
+                    exclude_flag Text, exclude_reason Text, error_msg Text
                 )
                        ''')
             conn.commit()
@@ -45,15 +45,17 @@ class Database(object):
         else:
             pass
 
-    def insert_row(self, file_name, full_path, up_time, result, canonical_url, exclude_flag, exclude_reason):
+    def insert_row(self, file_name, full_path, up_time, result, canonical_url,
+                   pdf_url, text_url, exclude_flag, exclude_reason, error_msg):
         """
         Inserts a row in the table.
         """
         conn = sqlite3.connect(self.db_full_path)
         cur = conn.cursor()
         cur.execute('''
-            INSERT INTO uploads VALUES (?,?,?,?,?,?,?);
-            ''', (file_name, full_path, up_time, result, canonical_url, exclude_flag, exclude_reason))
+            INSERT INTO uploads VALUES (?,?,?,?,?,?,?,?,?,?);
+            ''', (file_name, full_path, up_time, result, canonical_url,
+                  pdf_url, text_url, exclude_flag, exclude_reason, error_msg))
         conn.commit()
         conn.close()
 
@@ -86,8 +88,8 @@ class Database(object):
         row_counter = 0
         with open(self.csv_full_path, 'w') as csvfile:
             header_row = ('file_name', 'full_path', 'upload_time',
-                          'result', 'canonical_url', 'exclude_flag',
-                          'exclude_reason')
+                          'result', 'canonical_url', 'pdf_url', 'text_url',
+                          'exclude_flag', 'exclude_reason', 'error_msg')
 
             writer = csv.writer(csvfile, delimiter=',', quotechar='"')
             writer.writerow(header_row)

@@ -40,17 +40,21 @@ class DocumentCloudUploader(object):
 
     def log_exclusion(self, name, full_path, exclude_reason):
         """
-        Log an excluded file to the database.
+        Log to the database a file excluded due to invalid file type
+        or exceeding upload size limits.
         """
         timestamp = self.utils.timestamp()
         self.db.insert_row(
             name,
             full_path,
             timestamp,
-            None,
-            None,
-            'Y',
-            exclude_reason)
+            None,            # result
+            None,            # canonical_url
+            None,            # pdf_url
+            None,            # text_url
+            'Y',             # exclude flag
+            exclude_reason,
+            None)            # error_msg
 
     def build_file_list(self, file_directory):
         """
@@ -104,8 +108,11 @@ class DocumentCloudUploader(object):
             timestamp,
             r.status_code,
             upload_response['canonical_url'],
-            None,
-            None)
+            upload_response['resources']['pdf'],
+            upload_response['resources']['text'],
+            'N',    # exclude_flag
+            None,   # exclude_reason
+            None)   # error_msg
 
     def upload(self, file_directory=None, title=None, source=None,
                description=None, language=None, related_article=None,
