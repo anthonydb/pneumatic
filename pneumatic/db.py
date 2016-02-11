@@ -36,7 +36,7 @@ class Database(object):
                 CREATE TABLE uploads
                 (
                     file_name Text, full_path Text, upload_time Text,
-                    result Text, canonical_url Text, pdf_url Text, text_url,
+                    result Text, canonical_url Text, pdf_url Text, text_url Text,
                     exclude_flag Text, exclude_reason Text, error_msg Text
                 )
                        ''')
