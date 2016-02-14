@@ -97,22 +97,39 @@ class DocumentCloudUploader(object):
         Post the request and log response to the database.
         """
         files = {'file': open(upload_dict['full_path'], 'rb')}
-
         print('Uploading ' + upload_dict['full_path'])
+        timestamp = self.utils.timestamp()
+
+        # Upload via requests.
         r = requests.post(self.base_uri + 'upload.json', params=upload_dict['payload'], files=files)
         upload_response = json.loads(r.text)
-        timestamp = self.utils.timestamp()
+
+        # Check for success and set variables accordingly.
+        if r.status_code == 200:
+            title = upload_response['title']
+            canonical_url = upload_response['canonical_url']
+            pdf = upload_response['resources']['pdf']
+            text = upload_response['resources']['text']
+            error_msg = None
+        else:
+            title = upload_dict['payload']['title']
+            canonical_url = None
+            pdf = None
+            text = None
+            error_msg = upload_response['error']
+
+        # Log upload response to the database.
         self.db.insert_row(
-            upload_response['title'],
+            title,
             upload_dict['full_path'],
             timestamp,
             r.status_code,
-            upload_response['canonical_url'],
-            upload_response['resources']['pdf'],
-            upload_response['resources']['text'],
-            'N',    # exclude_flag
-            None,   # exclude_reason
-            None)   # error_msg
+            canonical_url,
+            pdf,
+            text,
+            'N',         # exclude_flag
+            None,        # exclude_reason
+            error_msg)   # error_msg
 
     def upload(self, file_directory=None, title=None, source=None,
                description=None, language=None, related_article=None,

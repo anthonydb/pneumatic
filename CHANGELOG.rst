@@ -4,8 +4,9 @@ Changelog
 Development
 -----------
 
-* More comprehensive file exclusion list.
+* More comprehensive filetype exclusion list.
 * Record pdf and text URLs in database.
+* Uploads that return status codes other than 200 are handled.
 
 0.1.2 - February 4, 2016
 ------------------------
