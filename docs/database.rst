@@ -7,9 +7,12 @@ Each time you start an upload, pneumatic creates a table called ``uploads`` in a
 * ``full_path``: The full directory path to the file, including the file name.
 * ``upload_time``: Timestamp indicating the time of upload.
 * ``result``: HTTP response code from DocumentCloud. ``200`` indicates success.
-* ``canonical_url``: The URL to the uploaded document on DocumentCloud.
+* ``canonical_url``: The URL to the document displayed in the viewer on DocumentCloud.
+* ``pdf_url``: The URL to the PDF.
+* ``text_url``: The URL to the extracted text of the document.
 * ``exclude_flag``: Flag indicating whether pneumatic excluded the file from being uploaded. For information on why files might be excluded, see the documentation on File Exclusions.
 * ``exclude_reason``: The reason a file was excluded from upload.
+* ``error_msg``: Server error message if upload attempt failed.
 
 Printing the database name and location
 ---------------------------------------
