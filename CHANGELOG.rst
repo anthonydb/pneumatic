@@ -4,6 +4,8 @@ Changelog
 Development
 -----------
 
+* Report number of files to be uploaded before starting.
+* Better reporting of upload progress and results.
 * More comprehensive filetype exclusion list.
 * Record pdf and text URLs in database.
 * Uploads that return status codes other than 200 are handled.
