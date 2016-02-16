@@ -99,8 +99,8 @@ class Database(object):
             cur = conn.cursor()
             for row in cur.execute('SELECT * FROM uploads;'):
                 writer.writerow(row)
+                row_counter += 1
             conn.close()
-            row_counter += 1
 
         print(str(row_counter) + ' database records output to ' + self.csv_full_path)
 
