@@ -59,10 +59,13 @@ class DocumentCloudUploader(object):
     def build_file_list(self, file_directory):
         """
         Walk the supplied or current directory, including sub-directories,
-        and build a list of files for the upload.
+        and build a list of files for the upload. Report a file count to
+        the user and give an option to proceed or not.
         """
 
         documents = []
+        docs_to_upload = 0
+        docs_to_exclude = 0
 
         # If no directory supplied, use the current directory.
         # If directory supplied, check that it exists.
@@ -90,6 +93,23 @@ class DocumentCloudUploader(object):
 
         # Check list of files for prohibited formats, size
         documents = self.utils.sanitize_uploads(files_dict_list)
+
+        # Count documents to upload and exclude.
+        for doc in documents:
+            if doc['exclude_flag']:
+                docs_to_exclude += 1
+            else:
+                docs_to_upload += 1
+        print(str(docs_to_upload) + ' files will be uploaded. ' + str(docs_to_exclude) + ' will be excluded.')
+
+        # Ask user to continue.
+        response = input('Continue? Y/n: ')
+        if response.lower() == 'y':
+            pass
+        else:
+            print('Exiting.')
+            sys.exit()
+
         return documents
 
     def request(self, upload_dict):
