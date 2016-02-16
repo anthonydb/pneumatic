@@ -80,6 +80,7 @@ class DocumentCloudUploader(object):
 
         # Create a list of dictionaries that includes file name and full path,
         # plus placeholders for exclusion information.
+        print('Building file list ...')
         files_dict_list = []
         for root, dir, files in os.walk(file_directory):
             for f in files:
@@ -117,7 +118,7 @@ class DocumentCloudUploader(object):
         Post the request and log response to the database.
         """
         files = {'file': open(upload_dict['full_path'], 'rb')}
-        print('Uploading ' + upload_dict['full_path'])
+        print('.. Uploading ' + upload_dict['full_path'])
         timestamp = self.utils.timestamp()
 
         # Upload via requests.
@@ -126,12 +127,14 @@ class DocumentCloudUploader(object):
 
         # Check for success and set variables accordingly.
         if r.status_code == 200:
+            print('++ Upload succeeded for ' + upload_dict['full_path'])
             title = upload_response['title']
             canonical_url = upload_response['canonical_url']
             pdf = upload_response['resources']['pdf']
             text = upload_response['resources']['text']
             error_msg = None
         else:
+            print('!! Upload failed for ' + upload_dict['full_path'])
             title = upload_dict['payload']['title']
             canonical_url = None
             pdf = None
