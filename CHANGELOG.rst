@@ -1,13 +1,13 @@
 Changelog
 =========
 
-Development
+0.1.4 - February 17, 2016
 -----------
 
-*
+* Remove extra line space on csv dump in Windows.
 
 0.1.3 - February 16, 2016
-------------------------
+-------------------------
 
 * Report number of files to be uploaded before starting.
 * Better reporting of upload progress and results.
