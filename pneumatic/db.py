@@ -86,7 +86,7 @@ class Database(object):
 
         # Query the database and write the rows to the CSV.
         row_counter = 0
-        with open(self.csv_full_path, 'w') as csvfile:
+        with open(self.csv_full_path, 'w', newline='') as csvfile:
             header_row = ('file_name', 'full_path', 'upload_time',
                           'result', 'canonical_url', 'pdf_url', 'text_url',
                           'exclude_flag', 'exclude_reason', 'error_msg')
