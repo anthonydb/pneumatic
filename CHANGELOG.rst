@@ -4,6 +4,11 @@ Changelog
 Development
 -----------
 
+*
+
+0.1.3 - February 16, 2016
+------------------------
+
 * Report number of files to be uploaded before starting.
 * Better reporting of upload progress and results.
 * More comprehensive filetype exclusion list.
