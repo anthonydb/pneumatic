@@ -23,7 +23,13 @@ Links
 Basic Usage
 -----------
 
-You will need an active DocumentCloud account. Example use: To upload all files in a directory (and all sub-directories below it), assign them to an existing project, set the files to public access, and tag each with metadata, run the following code:
+You will need an active DocumentCloud account and Python 3.4+. First, install via pip:
+
+.. code-block:: python
+
+    pip install pneumatic
+
+Example use: To upload all files in a directory (and all sub-directories below it), assign them to an existing project, set the files to public access, and tag each with metadata, run the following code:
 
 .. code-block:: python
 
