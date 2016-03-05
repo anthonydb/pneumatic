@@ -133,6 +133,8 @@ class DocumentCloudUploader(object):
         if r.status_code == 200:
             print('++ Upload succeeded for ' + upload_dict['full_path'])
             title = upload_response['title']
+            pages = upload_response['pages']
+            file_hash = upload_response['file_hash']
             canonical_url = upload_response['canonical_url']
             pdf = upload_response['resources']['pdf']
             text = upload_response['resources']['text']
@@ -141,6 +143,8 @@ class DocumentCloudUploader(object):
             print('!! Upload failed for ' + upload_dict['full_path'])
             title = upload_dict['payload']['title']
             canonical_url = None
+            pages = 0
+            file_hash = None
             pdf = None
             text = None
             error_msg = upload_response['error']
@@ -150,8 +154,8 @@ class DocumentCloudUploader(object):
             title,
             upload_dict['full_path'],
             timestamp,
-            None,          # pages
-            None,          # file hash
+            pages,
+            file_hash,
             r.status_code,
             canonical_url,
             pdf,
