@@ -1,8 +1,14 @@
 Changelog
 =========
 
-0.1.4 - February 17, 2016
+Development
 -----------
+
+* Add page count, file hash, doc id and title to items tracked in database.
+
+
+0.1.4 - February 17, 2016
+-------------------------
 
 * Remove extra line space on csv dump in Windows.
 
