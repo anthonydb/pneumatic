@@ -48,6 +48,8 @@ class DocumentCloudUploader(object):
             name,
             full_path,
             timestamp,
+            None,            # pages
+            None,            # file hash
             None,            # result
             None,            # canonical_url
             None,            # pdf_url
@@ -101,7 +103,8 @@ class DocumentCloudUploader(object):
                 docs_to_exclude += 1
             else:
                 docs_to_upload += 1
-        print(str(docs_to_upload) + ' files will be uploaded. ' + str(docs_to_exclude) + ' will be excluded.')
+        print(str(docs_to_upload) + ' files will be uploaded. ' +
+              str(docs_to_exclude) + ' will be excluded.')
 
         # Ask user to continue.
         response = input('Continue? Y/n: ')
@@ -122,7 +125,8 @@ class DocumentCloudUploader(object):
         timestamp = self.utils.timestamp()
 
         # Upload via requests.
-        r = requests.post(self.base_uri + 'upload.json', params=upload_dict['payload'], files=files)
+        r = requests.post(self.base_uri + 'upload.json',
+                          params=upload_dict['payload'], files=files)
         upload_response = json.loads(r.text)
 
         # Check for success and set variables accordingly.
@@ -146,13 +150,15 @@ class DocumentCloudUploader(object):
             title,
             upload_dict['full_path'],
             timestamp,
+            None,          # pages
+            None,          # file hash
             r.status_code,
             canonical_url,
             pdf,
             text,
-            'N',         # exclude_flag
-            None,        # exclude_reason
-            error_msg)   # error_msg
+            'N',           # exclude_flag
+            None,          # exclude_reason
+            error_msg)     # error_msg
 
     def upload(self, file_directory=None, title=None, source=None,
                description=None, language=None, related_article=None,
@@ -193,7 +199,8 @@ class DocumentCloudUploader(object):
                     'secure': secure,
                     'force_ocr': force_ocr
                 }
-                # Thank you to Ben Welsh (@palewire) for the following two lines:
+                # Thank you to Ben Welsh (@palewire)
+                # for the following two lines:
                 for key, value in data.items():
                     doc['payload']['data[%s]' % key] = value
 

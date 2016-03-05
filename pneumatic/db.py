@@ -36,7 +36,8 @@ class Database(object):
                 CREATE TABLE uploads
                 (
                     file_name Text, full_path Text, upload_time Text,
-                    result Text, canonical_url Text, pdf_url Text, text_url Text,
+                    pages Integer, file_hash Text, result Text,
+                    canonical_url Text, pdf_url Text, text_url Text,
                     exclude_flag Text, exclude_reason Text, error_msg Text
                 )
                        ''')
@@ -45,17 +46,19 @@ class Database(object):
         else:
             pass
 
-    def insert_row(self, file_name, full_path, up_time, result, canonical_url,
-                   pdf_url, text_url, exclude_flag, exclude_reason, error_msg):
+    def insert_row(self, file_name, full_path, up_time, pages, file_hash,
+                   result, canonical_url, pdf_url, text_url, exclude_flag,
+                   exclude_reason, error_msg):
         """
         Inserts a row in the table.
         """
         conn = sqlite3.connect(self.db_full_path)
         cur = conn.cursor()
         cur.execute('''
-            INSERT INTO uploads VALUES (?,?,?,?,?,?,?,?,?,?);
-            ''', (file_name, full_path, up_time, result, canonical_url,
-                  pdf_url, text_url, exclude_flag, exclude_reason, error_msg))
+            INSERT INTO uploads VALUES (?,?,?,?,?,?,?,?,?,?,?,?);
+            ''', (file_name, full_path, up_time, pages, file_hash, result,
+                  canonical_url, pdf_url, text_url, exclude_flag,
+                  exclude_reason, error_msg))
         conn.commit()
         conn.close()
 
@@ -88,8 +91,9 @@ class Database(object):
         row_counter = 0
         with open(self.csv_full_path, 'w', newline='') as csvfile:
             header_row = ('file_name', 'full_path', 'upload_time',
-                          'result', 'canonical_url', 'pdf_url', 'text_url',
-                          'exclude_flag', 'exclude_reason', 'error_msg')
+                          'pages', 'file_hash', 'result', 'canonical_url',
+                          'pdf_url', 'text_url', 'exclude_flag',
+                          'exclude_reason', 'error_msg')
 
             writer = csv.writer(csvfile, delimiter=',', quotechar='"')
             writer.writerow(header_row)
@@ -102,7 +106,8 @@ class Database(object):
                 row_counter += 1
             conn.close()
 
-        print(str(row_counter) + ' database records output to ' + self.csv_full_path)
+        print(str(row_counter) + ' database records output to ' +
+              self.csv_full_path)
 
     def print_db_name(self):
         """
