@@ -199,8 +199,13 @@ class DocumentCloudUploader(object):
                     doc['full_path'],
                     doc['exclude_reason'])
             else:
+                if title:
+                    upload_title = title
+                else:
+                    upload_title = doc['name']
+
                 doc['payload'] = {
-                    'title': doc['name'],
+                    'title': upload_title,
                     'source': source,
                     'description': description,
                     'language': language,
