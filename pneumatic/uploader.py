@@ -211,10 +211,10 @@ class DocumentCloudUploader(object):
                     'secure': secure,
                     'force_ocr': force_ocr
                 }
-                # Thank you to Ben Welsh (@palewire)
-                # for the following two lines:
-                for key, value in data.items():
-                    doc['payload']['data[%s]' % key] = value
+                # Thank you to Ben Welsh (@palewire):
+                if data:
+                    for key, value in data.items():
+                        doc['payload']['data[%s]' % key] = value
 
                 # print(doc['payload'])
                 cleared_uploads.append(doc)
