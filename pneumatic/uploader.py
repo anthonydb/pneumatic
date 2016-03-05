@@ -45,6 +45,8 @@ class DocumentCloudUploader(object):
         """
         timestamp = self.utils.timestamp()
         self.db.insert_row(
+            None,            # id
+            None,            # title
             name,
             full_path,
             timestamp,
@@ -132,7 +134,9 @@ class DocumentCloudUploader(object):
         # Check for success and set variables accordingly.
         if r.status_code == 200:
             print('++ Upload succeeded for ' + upload_dict['full_path'])
+            id = upload_response['id']
             title = upload_response['title']
+            file_name = upload_dict['payload']['title']
             pages = upload_response['pages']
             file_hash = upload_response['file_hash']
             canonical_url = upload_response['canonical_url']
@@ -141,7 +145,9 @@ class DocumentCloudUploader(object):
             error_msg = None
         else:
             print('!! Upload failed for ' + upload_dict['full_path'])
-            title = upload_dict['payload']['title']
+            id = None
+            title = None
+            file_name = upload_dict['payload']['title']
             canonical_url = None
             pages = 0
             file_hash = None
@@ -151,7 +157,9 @@ class DocumentCloudUploader(object):
 
         # Log upload response to the database.
         self.db.insert_row(
+            id,
             title,
+            file_name,
             upload_dict['full_path'],
             timestamp,
             pages,

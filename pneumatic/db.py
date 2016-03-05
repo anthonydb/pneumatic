@@ -35,10 +35,11 @@ class Database(object):
             cur.execute('''
                 CREATE TABLE uploads
                 (
-                    file_name Text, full_path Text, upload_time Text,
-                    pages Integer, file_hash Text, result Text,
-                    canonical_url Text, pdf_url Text, text_url Text,
-                    exclude_flag Text, exclude_reason Text, error_msg Text
+                    id Text, title Text, file_name Text, full_path Text,
+                    upload_time Text, pages Integer, file_hash Text,
+                    result Text, canonical_url Text, pdf_url Text,
+                    text_url Text, exclude_flag Text, exclude_reason Text,
+                    error_msg Text
                 )
                        ''')
             conn.commit()
@@ -46,19 +47,19 @@ class Database(object):
         else:
             pass
 
-    def insert_row(self, file_name, full_path, up_time, pages, file_hash,
-                   result, canonical_url, pdf_url, text_url, exclude_flag,
-                   exclude_reason, error_msg):
+    def insert_row(self, id, title, file_name, full_path, up_time, pages,
+                   file_hash, result, canonical_url, pdf_url, text_url,
+                   exclude_flag, exclude_reason, error_msg):
         """
         Inserts a row in the table.
         """
         conn = sqlite3.connect(self.db_full_path)
         cur = conn.cursor()
         cur.execute('''
-            INSERT INTO uploads VALUES (?,?,?,?,?,?,?,?,?,?,?,?);
-            ''', (file_name, full_path, up_time, pages, file_hash, result,
-                  canonical_url, pdf_url, text_url, exclude_flag,
-                  exclude_reason, error_msg))
+            INSERT INTO uploads VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);
+            ''', (id, title, file_name, full_path, up_time, pages,
+                  file_hash, result, canonical_url, pdf_url, text_url,
+                  exclude_flag, exclude_reason, error_msg))
         conn.commit()
         conn.close()
 
@@ -90,10 +91,10 @@ class Database(object):
         # Query the database and write the rows to the CSV.
         row_counter = 0
         with open(self.csv_full_path, 'w', newline='') as csvfile:
-            header_row = ('file_name', 'full_path', 'upload_time',
-                          'pages', 'file_hash', 'result', 'canonical_url',
-                          'pdf_url', 'text_url', 'exclude_flag',
-                          'exclude_reason', 'error_msg')
+            header_row = ('id', 'title', 'file_name', 'full_path',
+                          'upload_time', 'pages', 'file_hash', 'result',
+                          'canonical_url', 'pdf_url', 'text_url',
+                          'exclude_flag', 'exclude_reason', 'error_msg')
 
             writer = csv.writer(csvfile, delimiter=',', quotechar='"')
             writer.writerow(header_row)
