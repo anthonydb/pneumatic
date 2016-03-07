@@ -63,6 +63,23 @@ class Database(object):
         conn.commit()
         conn.close()
 
+    def update_row(self, db, id, title, file_name, full_path, up_time, pages,
+                   file_hash, result, canonical_url, pdf_url, text_url,
+                   exclude_flag, exclude_reason, error_msg):
+        """
+        Updates a row in the table.
+        """
+        conn = sqlite3.connect(db)
+        cur = conn.cursor()
+
+        cur.execute('''
+            UPDATE uploads
+            SET title = ?, pages = ?, file_hash = ?
+            WHERE id = ?;
+            ''', (title, pages, file_hash, id))
+        conn.commit()
+        conn.close()
+
     def dump_to_csv(self, db_name=None):
         """
         Outputs the contents of a SQLite database to CSV.

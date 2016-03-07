@@ -3,6 +3,7 @@
 import os
 import sys
 import json
+import sqlite3
 from multiprocessing import Pool
 import requests
 from .db import Database
@@ -140,7 +141,7 @@ class DocumentCloudUploader(object):
             print('++ Upload succeeded for ' + upload_dict['full_path'])
             id = upload_response['id']
             title = upload_response['title']
-            file_name = upload_dict['payload']['title']
+            file_name = upload_dict['name']
             pages = upload_response['pages']
             file_hash = upload_response['file_hash']
             canonical_url = upload_response['canonical_url']
@@ -151,7 +152,7 @@ class DocumentCloudUploader(object):
             print('!! Upload failed for ' + upload_dict['full_path'])
             id = None
             title = None
-            file_name = upload_dict['payload']['title']
+            file_name = upload_dict['name']
             canonical_url = None
             pages = 0
             file_hash = None
@@ -233,3 +234,66 @@ class DocumentCloudUploader(object):
         elif os.name == 'nt':
             for upload_dict in cleared_uploads:
                 self.request(upload_dict)
+
+    def request_get(self, db, url):
+        """
+        Request a document and update the database with results
+        """
+
+        r = requests.get(url)
+
+        if r.status_code == 200:
+            # update db
+            get_response = json.loads(r.text)
+
+            id = get_response['document']['id']
+            title = get_response['document']['title']
+            pages = get_response['document']['pages']
+            file_hash = get_response['document']['file_hash']
+
+            self.db.update_row(
+                db,
+                id,
+                title,
+                None,          # file name
+                None,          # file path
+                None,          # timestamp
+                pages,
+                file_hash,
+                None,          # status_code
+                None,          # canonical_url
+                None,          # pdf_url
+                None,          # text_url
+                None,          # exclude_flag
+                None,          # exclude_reason
+                None)          # error_msg
+
+        else:
+            print('Document not found')
+
+    def update_processed_files(self, db_name=None):
+        """
+        Retrieve each file's page count and file hash once
+        DocumentCloud has finished processing the files.
+        """
+
+        # We can pass in a db name or use the one in the current session.
+        # Check if it exists, first.
+        if db_name:
+            if os.path.isfile(db_name):
+                db = db_name
+            else:
+                print('The database file specified does not exist.')
+                sys.exit()
+        else:
+            db = self.db.db_full_path
+
+        # Generate list of API get requests for successfully uploaded document
+        conn = sqlite3.connect(db)
+        cur = conn.cursor()
+        uploaded_doc_urls = [self.base_uri + 'documents/' + row[0] + '.json'
+                             for row in cur.execute('SELECT id FROM uploads WHERE result = 200;')]
+        conn.close()
+
+        for url in uploaded_doc_urls:
+            self.request_get(db, url)

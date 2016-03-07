@@ -4,8 +4,10 @@ Changelog
 Development
 -----------
 
-* Add page count, file hash, doc id and title to items tracked in database.
-
+* Add ``update_processed_files`` method to get page, file hash and other data that's not available upon upload.
+* Add ``pages`, ``file_hash`, ``id`` and ``title`` to items tracked in database.
+* Create database upon DocumentCloudUploader initialization.
+* Bug fix: Properly test for presence of data and title keyword arguments.
 
 0.1.4 - February 17, 2016
 -------------------------
