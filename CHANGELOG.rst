@@ -5,7 +5,7 @@ Development
 -----------
 
 * Add ``update_processed_files`` method to get page, file hash and other data that's not available upon upload.
-* Add ``pages`, ``file_hash`, ``id`` and ``title`` to items tracked in database.
+* Add ``pages``, ``file_hash``, ``id`` and ``title`` to items tracked in database.
 * Create database upon DocumentCloudUploader initialization.
 * Bug fix: Properly test for presence of data and title keyword arguments.
 
