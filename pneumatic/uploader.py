@@ -203,7 +203,7 @@ class DocumentCloudUploader(object):
                 if title:
                     upload_title = title
                 else:
-                    upload_title = doc['name']
+                    upload_title = os.path.splitext(doc['name'])[0]
 
                 doc['payload'] = {
                     'title': upload_title,
