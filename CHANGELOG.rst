@@ -1,12 +1,13 @@
 Changelog
 =========
 
-Development
------------
+0.1.5 - March 9, 2016
+---------------------
 
 * Add ``update_processed_files`` method to get page, file hash and other data that's not available upon upload.
 * Add ``pages``, ``file_hash``, ``id`` and ``title`` to items tracked in database.
-* Create database upon DocumentCloudUploader initialization.
+* Create database upon ``DocumentCloudUploader`` initialization.
+* Get rid of the file extension in the document title.
 * Bug fix: Properly test for presence of data and title keyword arguments.
 
 0.1.4 - February 17, 2016
