@@ -51,7 +51,7 @@ If you're coming back to an old database, or you forgot to dump the CSV while th
 Updating database contents
 --------------------------
 
-The API response to a DocumentCloud upload does not include an actual value for `pages` or `file_hash`. These are calculated as part of DocumentCloud's processing of the document. Once your documents are finished processing, you can use pneumatic to go back and retrieve those values with the ``update_processed_files`` method.
+The API response to a DocumentCloud upload does not include an actual value for ``pages`` or ``file_hash``. These are calculated as part of DocumentCloud's processing of the document. Once your documents are finished processing, you can use pneumatic to go back and retrieve those values with the ``update_processed_files`` method.
 
 You can use the method within a current session, which will update the database active in the session, or you can pass in the name of any other database file pneumatic created.
 
@@ -70,5 +70,5 @@ To come back to an older database and process it:
     uploader = DocumentCloudUploader('person@example.com', 'your-password')
     uploader.update_processed_files('path/to/file.db')
 
-Currently, only `title`, `pages` and `file_hash` are updated.
+Currently, only ``title``, ``pages`` and ``file_hash`` are updated.
 
