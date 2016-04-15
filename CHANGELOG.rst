@@ -1,6 +1,12 @@
 Changelog
 =========
 
+Development
+-----------
+
+* Provide ``User-Agent`` and ``From`` HTTP header fields.
+
+
 0.1.5 - March 9, 2016
 ---------------------
 

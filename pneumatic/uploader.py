@@ -20,6 +20,10 @@ class DocumentCloudUploader(object):
         self.password = password
         self.base_uri = 'https://' + username + ':' + password +\
                         '@www.documentcloud.org/api/'
+        self.headers = {
+            'User-Agent': 'pneumatic/0.1.6',
+            'From': self.username
+        }
 
         if self.credential_test() == 200:
             pass
@@ -133,7 +137,9 @@ class DocumentCloudUploader(object):
 
         # Upload via requests.
         r = requests.post(self.base_uri + 'upload.json',
-                          params=upload_dict['payload'], files=files)
+                          params=upload_dict['payload'],
+                          files=files,
+                          headers=self.headers)
         upload_response = json.loads(r.text)
 
         # Check for success and set variables accordingly.
@@ -240,7 +246,7 @@ class DocumentCloudUploader(object):
         Request a document and update the database with results
         """
 
-        r = requests.get(url)
+        r = requests.get(url, headers=self.headers)
 
         if r.status_code == 200:
             # update db
