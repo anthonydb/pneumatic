@@ -5,7 +5,7 @@ Development
 -----------
 
 * Provide ``User-Agent`` and ``From`` HTTP header fields.
-
+* Correct issue where ``force_ocr`` and ``secure`` parameters were not being set default to ``false`` in the Ruby way.
 
 0.1.5 - March 9, 2016
 ---------------------

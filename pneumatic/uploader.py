@@ -186,7 +186,7 @@ class DocumentCloudUploader(object):
     def upload(self, file_directory=None, title=None, source=None,
                description=None, language=None, related_article=None,
                published_url=None, access='private', project=None,
-               data=None, secure=False, force_ocr=False):
+               data=None, secure='false', force_ocr='false'):
         """
         Upload one or more documents with associated metadata and options.
         """
