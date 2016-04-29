@@ -17,9 +17,7 @@ To create an upload client, import the ``DocumentCloudUploader`` class in your P
 Start an upload
 ---------------
 
-Use the ``upload`` method to upload files, passing in parameters as desired. For a complete list of available parameters, consult the `DocumentCloud API documentation <https://www.documentcloud.org/help/api#upload-documents>`_.
-
-For example, after you import pneumatic and creat a client as shown above, you can initiate the upload with code such as this:
+Use the ``upload`` method to upload files, passing in parameters as desired. For example, after you import pneumatic and creat a client as shown above, you can initiate the upload with code such as this:
 
 .. code-block:: python
 
@@ -32,6 +30,27 @@ For example, after you import pneumatic and creat a client as shown above, you c
 In this example, pneumatic will attempt to upload all files in the ``/govfiles`` directory and all subdirectories below it. In addition, it will assign the files to an existing project (must have been created already), set each file to public access, and tag each file with custom metadata.
 
 If no ``file_directory`` parameter is supplied, pneumatic uploads files in the directory from which you execute your Python script.
+
+
+Upload parameters
+-----------------
+
+pneumatic handles all of the parameters supported by DocumentCloud's upload endpoint. All are optional:
+
+* ``file_directory``: string; the path to your files. If no ``file_directory`` parameter is supplied, pneumatic uploads files in the directory from which you execute your Python script.
+* ``title``: string; the file title. Normally not used with pneumatic because if you specify this, it applies to all files you upload.
+* ``source``: string; the source for the files.
+* ``description``: string; the description of the files.
+* ``language``: string; the language of the document for OCR. Default is ``eng``.
+* ``related_article``: string; URL of an article related to the files.
+* ``published_url``: string: URL of the page where the documents are published.
+* ``access``: string; use ``access='public'`` to make documents publicly viewable upon upload. Default is private.
+* ``project``: string; ID of a project.
+* ``data``: dictionary of keys and values to tag documents. Example: ``data={'type': 'government', 'action': 'lawsuit'}``
+* ``secure``: boolean; set to ``secure=True`` if you want to prevent DocumentCloud from passing your document's text through the OpenCalais API.
+* ``force_ocr``: boolean; set to ``force_ocr=True`` to have DocumentCloud OCR your documents even if they contain a text layer.
+
+For more information on these parameters, consult the `DocumentCloud API documentation <https://www.documentcloud.org/help/api#upload-documents>`_
 
 File exclusions
 ---------------
