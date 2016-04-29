@@ -186,7 +186,7 @@ class DocumentCloudUploader(object):
     def upload(self, file_directory=None, title=None, source=None,
                description=None, language=None, related_article=None,
                published_url=None, access='private', project=None,
-               data=None, secure='false', force_ocr='false'):
+               data=None, secure=False, force_ocr=False):
         """
         Upload one or more documents with associated metadata and options.
         """
@@ -220,13 +220,19 @@ class DocumentCloudUploader(object):
                     'published_url': published_url,
                     'access': access,
                     'project': project,
-                    'secure': secure,
-                    'force_ocr': force_ocr
                 }
                 # Thank you to Ben Welsh (@palewire):
                 if data:
                     for key, value in data.items():
                         doc['payload']['data[%s]' % key] = value
+
+                if secure:
+                    if secure is True:
+                        doc['payload']['secure'] = 'true'
+
+                if force_ocr:
+                    if force_ocr is True:
+                        doc['payload']['force_ocr'] = 'true'
 
                 # print(doc['payload'])
                 cleared_uploads.append(doc)
