@@ -1,7 +1,7 @@
 A Bulk-Upload Library for DocumentCloud
 ---------------------------------------
 
-pneumatic is a Python 3 library that adds some luxury and safeguards to the bulk-uploading of hundreds, thousands or hundreds of thousands of files to `DocumentCloud <https://www.documentcloud.org>`_. It is meant to do one thing -- upload -- and serve as an adjunct to, but not a replacement for, the excellent `python-documentcloud <http://python-documentcloud.readthedocs.org/en/latest/>`_ API wrapper.
+pneumatic is a Python 3 library that adds some luxury and safeguards to the bulk-uploading of hundreds, thousands or hundreds of thousands of files to `DocumentCloud <https://www.documentcloud.org>`_. It is meant to do one thing -- upload -- and serve as an adjunct to, but not a replacement for, the excellent `python-documentcloud <http://python-documentcloud.readthedocs.io/en/latest/>`_ API wrapper.
 
 pneumatic's name is inspired by the pneumatic dispatch systems in newsrooms of yore, which featured a `series of pneumatic tubes`_ for sending copy from the newsrooms to other departments such as the composing room.
 
@@ -16,7 +16,7 @@ Features
 Links
 -----
 
-* Documentation:    https://pneumatic.readthedocs.org/
+* Documentation:    http://pneumatic.readthedocs.io/en/latest/
 * Repository:       https://github.com/anthonydb/pneumatic
 * Issues:           https://github.com/anthonydb/pneumatic/issues
 

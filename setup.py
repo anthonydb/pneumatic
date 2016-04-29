@@ -22,7 +22,7 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
     ],
-    url='http://pneumatic.readthedocs.org/',
+    url='http://pneumatic.readthedocs.io/en/latest/',
     author='Anthony DeBarros',
     author_email='adebarros@gmail.com',
     license='MIT',
