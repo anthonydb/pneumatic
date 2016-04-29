@@ -140,10 +140,10 @@ class DocumentCloudUploader(object):
                           params=upload_dict['payload'],
                           files=files,
                           headers=self.headers)
-        upload_response = json.loads(r.text)
 
         # Check for success and set variables accordingly.
         if r.status_code == 200:
+            upload_response = json.loads(r.text)
             print('++ Upload succeeded for ' + upload_dict['full_path'])
             id = upload_response['id']
             title = upload_response['title']
@@ -164,7 +164,7 @@ class DocumentCloudUploader(object):
             file_hash = None
             pdf = None
             text = None
-            error_msg = upload_response['error']
+            error_msg = r.text
 
         # Log upload response to the database.
         self.db.insert_row(
