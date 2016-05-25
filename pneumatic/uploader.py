@@ -2,6 +2,7 @@
 
 import os
 import sys
+import atexit
 import json
 import sqlite3
 from multiprocessing import Pool
@@ -38,6 +39,13 @@ class DocumentCloudUploader(object):
         # Make the database
         self.db.make_db()
         self.db.print_db_name()
+
+        # Tasks to execute on program termination
+        def cleanup(db_name):
+            self.db.cleanup_empty_db(db_name)
+            print('\nAll done.\n')
+
+        atexit.register(cleanup, self.db.db_full_path)
 
     def credential_test(self):
         """

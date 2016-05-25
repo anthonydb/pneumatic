@@ -127,6 +127,23 @@ class Database(object):
         print(str(row_counter) + ' database records output to ' +
               self.csv_full_path)
 
+    def cleanup_empty_db(self, db_name):
+        """
+        Checks for empty db and removes if so.
+        """
+        conn = sqlite3.connect(db_name)
+        cur = conn.cursor()
+        cur.execute('SELECT COUNT(*) from uploads;')
+        record_count = cur.fetchone()[0]
+        conn.close()
+
+        if record_count == 0:
+            print('\nNo records were added to the database.\n' +
+                  'Removing ' + db_name)
+            os.remove(db_name)
+        else:
+            pass
+
     def print_db_name(self):
         """
         Prints name of the database.
