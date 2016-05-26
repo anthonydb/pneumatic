@@ -92,7 +92,8 @@ class Database(object):
             if os.path.isfile(db_name):
                 db = db_name
             else:
-                print('The database file specified does not exist.')
+                print('\033[1;31;40mERROR: \033[1;37;40mThe database file ' +
+                      'specified does not exist.')
                 sys.exit()
         else:
             db = self.db_full_path
@@ -124,8 +125,8 @@ class Database(object):
                 row_counter += 1
             conn.close()
 
-        print(str(row_counter) + ' database records output to ' +
-              self.csv_full_path)
+        print('\033[1;37;40m' + str(row_counter) + ' database records output to ' +
+              self.csv_full_path + '\n')
 
     def cleanup_empty_db(self, db_name):
         """
@@ -138,8 +139,8 @@ class Database(object):
         conn.close()
 
         if record_count == 0:
-            print('\nNo records were added to the database.\n' +
-                  'Removing ' + db_name)
+            print('\033[1;37;40m\nNo records were added to the database.\n' +
+                  'Removing ' + db_name + '\n')
             os.remove(db_name)
         else:
             pass
@@ -148,4 +149,5 @@ class Database(object):
         """
         Prints name of the database.
         """
-        print('Upload response data is stored in ' + self.db_full_path)
+        print('\033[1;37;40mUpload response data will be stored in ' +
+              self.db_full_path + '\n')
