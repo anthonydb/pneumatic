@@ -7,6 +7,7 @@ import json
 import sqlite3
 from multiprocessing import Pool
 import requests
+from colorama import init
 from .db import Database
 from .utils import Utils
 
@@ -25,6 +26,9 @@ class DocumentCloudUploader(object):
             'User-Agent': 'pneumatic/0.1.6',
             'From': self.username
         }
+
+        # Initialize colorama
+        init()
 
         print('\033[1;37;40mStarting pneumatic ...\n')
         if self.credential_test() == 200:
@@ -308,7 +312,7 @@ class DocumentCloudUploader(object):
             if os.path.isfile(db_name):
                 db = db_name
             else:
-                print('\033[1;31;40mERROR: \033[0;37;40mThe database file ' +
+                print('\033[1;31;40mERROR: \033[1;37;40mThe database file ' +
                       'specified does not exist.')
                 sys.exit()
         else:

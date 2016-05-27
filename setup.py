@@ -29,6 +29,7 @@ setup(
     packages=['pneumatic'],
     install_requires=[
         'requests',
+        'colorama'
     ],
     zip_safe=False
 )

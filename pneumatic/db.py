@@ -4,6 +4,7 @@ import os
 import sys
 import csv
 import sqlite3
+from colorama import init
 from .utils import Utils
 
 
@@ -15,6 +16,9 @@ class Database(object):
 
     def __init__(self):
         self.utils = Utils()
+
+        # Initialize colorama
+        init()
 
     def make_db(self):
         # Create a SQLite db whose name includes a timestamp.
@@ -139,7 +143,7 @@ class Database(object):
         conn.close()
 
         if record_count == 0:
-            print('\033[1;37;40m\nNo records were added to the database.\n' +
+            print('\033[1;37;40mNo records were added to the database.\n' +
                   'Removing ' + db_name + '\n')
             os.remove(db_name)
         else:
