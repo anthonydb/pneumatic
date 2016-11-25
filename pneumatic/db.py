@@ -96,7 +96,7 @@ class Database(object):
             if os.path.isfile(db_name):
                 db = db_name
             else:
-                print('\033[1;31;40mERROR: \033[1;37;40mThe database file ' +
+                print('\033[31mERROR: \033[0mThe database file ' +
                       'specified does not exist.')
                 sys.exit()
         else:
@@ -129,12 +129,12 @@ class Database(object):
                 row_counter += 1
             conn.close()
 
-        print('\033[1;37;40m' + str(row_counter) + ' database records output to ' +
-              self.csv_full_path + '\n')
+        print('\nCSV file created. ' + str(row_counter) + ' database ' +
+              'records were exported to ' + self.csv_full_path + '\n')
 
     def cleanup_empty_db(self, db_name):
         """
-        Checks for empty db and removes if so.
+        Checks for an empty db and removes if so.
         """
         conn = sqlite3.connect(db_name)
         cur = conn.cursor()
@@ -143,8 +143,8 @@ class Database(object):
         conn.close()
 
         if record_count == 0:
-            print('\033[1;37;40mNo records were added to the database.\n' +
-                  'Removing ' + db_name + '\n')
+            print('\nNo records were added to the database.\n' +
+                  'Therefore, we\'re removing ' + db_name)
             os.remove(db_name)
         else:
             pass
@@ -153,5 +153,6 @@ class Database(object):
         """
         Prints name of the database.
         """
-        print('\033[1;37;40mUpload response data will be stored in ' +
-              self.db_full_path + '\n')
+        print('\nUpload responses from the DocumentCloud API are stored in ' +
+              'a SQLite database file.\nYou\'ll find it in the current directory ' +
+              'at:\n' + self.db_full_path)

@@ -30,12 +30,13 @@ class DocumentCloudUploader(object):
         # Initialize colorama
         init()
 
-        print('\033[1;37;40mStarting pneumatic ...\n')
+        print('\n\033[36mWelcome to pneumatic, the bulk uploader for DocumentCloud.\n' +
+              '\n\033[0mInitializing ...')
         if self.credential_test() == 200:
             pass
         else:
-            print('\033[1;31;40mERROR: \033[1;37;40mYour username or ' +
-                  'password is incorrect.\nPlease check them and try again.\n')
+            print('\033[31mERROR: \033[0mYour username or password seems ' +
+                  'to be incorrect.\nPlease check them and try again.\n')
             sys.exit()
 
         self.db = Database()
@@ -48,7 +49,7 @@ class DocumentCloudUploader(object):
         # Tasks to execute on program termination
         def cleanup(db_name):
             self.db.cleanup_empty_db(db_name)
-            print('\n\033[1;37;40mExiting pneumatic.\n')
+            print('\n\033[36mExiting pneumatic.\033[0m\n')
 
         atexit.register(cleanup, self.db.db_full_path)
 
@@ -100,14 +101,14 @@ class DocumentCloudUploader(object):
         else:
             directory_exists = self.utils.file_directory_check(file_directory)
             if not directory_exists:
-                print('\033[1;31;40mERROR: \033[0;37;40mThe file directory ' +
+                print('\n\033[31mERROR: \033[0mThe file directory ' +
                       'you supplied does not exist.\n' +
-                      'Please check it and try again.\n')
+                      'Please check it and try again.')
                 sys.exit()
 
         # Create a list of dictionaries that includes file name and full path,
         # plus placeholders for exclusion information.
-        print('\033[1;37;40mBuilding list of files to upload ...')
+        print('\nBuilding a list of files ...')
         files_dict_list = []
         for root, dir, files in os.walk(file_directory):
             for f in files:
@@ -128,16 +129,15 @@ class DocumentCloudUploader(object):
                 docs_to_exclude += 1
             else:
                 docs_to_upload += 1
-        print('\033[1;37;40mpneumatic found ' + str(docs_to_upload) +
+        print('\npneumatic found ' + str(docs_to_upload) +
               ' files to upload. ' +
               str(docs_to_exclude) + ' files will be excluded.')
 
         # Ask user to continue.
-        response = input('\033[1;37;40mContinue? Y/n: ')
+        response = input('Continue? Y/n: ')
         if response.lower() == 'y':
             pass
         else:
-            print('\033[1;37;40mExiting.')
             sys.exit()
 
         return documents
@@ -147,7 +147,7 @@ class DocumentCloudUploader(object):
         Post the request and log response to the database.
         """
         files = {'file': open(upload_dict['full_path'], 'rb')}
-        print('\033[1;37;40m.. Uploading ' + upload_dict['full_path'])
+        print('.. Uploading ' + upload_dict['full_path'])
         timestamp = self.utils.timestamp()
 
         # Upload via requests.
@@ -159,8 +159,8 @@ class DocumentCloudUploader(object):
         # Check for success and set variables accordingly.
         if r.status_code == 200:
             upload_response = json.loads(r.text)
-            print('\033[1;32;40m++ Upload succeeded for ' +
-                  upload_dict['full_path'])
+            print('\033[36m' + '++ Upload succeeded for ' +
+                  upload_dict['full_path'] + '\033[0m')
             id = upload_response['id']
             title = upload_response['title']
             file_name = upload_dict['name']
@@ -171,8 +171,8 @@ class DocumentCloudUploader(object):
             text = upload_response['resources']['text']
             error_msg = None
         else:
-            print('\033[1;31;40m!! Upload failed for ' +
-                  upload_dict['full_path'])
+            print('\033[31m' + '!! Upload failed for ' +
+                  upload_dict['full_path'] + '\033[0m')
             id = None
             title = None
             file_name = upload_dict['name']
@@ -298,7 +298,7 @@ class DocumentCloudUploader(object):
                 None)          # error_msg
 
         else:
-            print('\033[1;37;40mDocument not found')
+            print('\033[37mDocument not found\033[0m')
 
     def update_processed_files(self, db_name=None):
         """
@@ -312,11 +312,14 @@ class DocumentCloudUploader(object):
             if os.path.isfile(db_name):
                 db = db_name
             else:
-                print('\033[1;31;40mERROR: \033[1;37;40mThe database file ' +
+                print('\033[31mERROR: \033[0mThe database file ' +
                       'specified does not exist.')
                 sys.exit()
         else:
             db = self.db.db_full_path
+
+        print('\nUpdating each document in ' + db + ' with page count ' +
+              'and file hash data.')
 
         # Generate list of API get requests for successfully uploaded document
         conn = sqlite3.connect(db)
