@@ -30,7 +30,7 @@ class DocumentCloudUploader(object):
         # Initialize colorama
         init()
 
-        print('\n\033[36mWelcome to pneumatic, the bulk uploader for DocumentCloud.\n' +
+        print('\n\033[36mWelcome to pneumatic, a bulk uploader for DocumentCloud.\n' +
               '\n\033[0mInitializing ...')
         if self.credential_test() == 200:
             pass
