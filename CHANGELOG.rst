@@ -1,8 +1,8 @@
 Changelog
 =========
 
-Development
------------
+0.1.7 - November 24, 2016
+-------------------------
 
 * Delete SQLite database if, upon program exit, it contains no records. (`#14 <https://github.com/anthonydb/pneumatic/issues/14>`_)
 * Add some color, improve readability in console output. (`#18 <https://github.com/anthonydb/pneumatic/issues/18>`_)

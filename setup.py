@@ -9,7 +9,7 @@ def readme():
 
 setup(
     name='pneumatic',
-    version='0.1.6',
+    version='0.1.7',
     description='A bulk upload library for DocumentCloud.',
     long_description=readme(),
     classifiers=[
