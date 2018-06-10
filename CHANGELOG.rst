@@ -1,6 +1,11 @@
 Changelog
 =========
 
+Development
+-------------------------
+
+* Confirm Python 3.6 support
+
 0.1.7 - November 24, 2016
 -------------------------
 

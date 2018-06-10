@@ -7,6 +7,7 @@ def readme():
     with open('README.rst') as f:
         return f.read()
 
+
 setup(
     name='pneumatic',
     version='0.1.7',
@@ -21,6 +22,7 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
     ],
     url='http://pneumatic.readthedocs.io/en/latest/',
     author='Anthony DeBarros',
