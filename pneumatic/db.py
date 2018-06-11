@@ -48,6 +48,8 @@ class Database(object):
                        ''')
             conn.commit()
             conn.close()
+            print('\033[36m* Uploads database created at: ' +
+                  self.db_full_path)
         else:
             pass
 
@@ -143,8 +145,8 @@ class Database(object):
         conn.close()
 
         if record_count == 0:
-            print('\nNo records were added to the database.\n' +
-                  'Therefore, we\'re removing ' + db_name)
+            print('\n\033[36mThe uploads database contains no records. It ' +
+                  'will be deleted to reduce clutter.')
             os.remove(db_name)
         else:
             pass
@@ -154,5 +156,5 @@ class Database(object):
         Prints name of the database.
         """
         print('\nUpload responses from the DocumentCloud API are stored in ' +
-              'a SQLite database file.\nYou\'ll find it in the current directory ' +
-              'at:\n' + self.db_full_path)
+              'a SQLite database file.\nYou\'ll find it in your current ' +
+              'directory at:\n' + self.db_full_path)
