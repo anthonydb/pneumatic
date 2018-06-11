@@ -1,24 +1,35 @@
 #!/usr/bin/env python
 
-# These are file types we do not want to send to DocumentCloud.
+# These are some common file types we do not want to send to DocumentCloud.
 file_excludes = (
     'accdb',
     'aiff',
     'au',
+    'bat',
+    'com',
+    'dat',
     'db',
+    'dbf',
     'ds_store',
     'exe',
     'flac',
+    'js',
+    'log',
     'mid',
     'midi',
     'mdb',
     'mov',
     'mp3',
     'mpa',
+    'msg',
     'ogg',
     'pst',
     'py',
+    'swf',
+    'tar',
     'wav',
     'wma',
+    'wmv',
+    'xml',
     'zip'
 )
