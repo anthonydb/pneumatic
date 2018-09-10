@@ -164,7 +164,7 @@ class DocumentCloudUploader(object):
         if r.status_code == 200:
             upload_response = json.loads(r.text)
             print('\033[36m' + '++ Upload succeeded for ' +
-                  upload_dict['full_path']')
+                  upload_dict['full_path'])
             id = upload_response['id']
             title = upload_response['title']
             file_name = upload_dict['name']
@@ -176,7 +176,7 @@ class DocumentCloudUploader(object):
             error_msg = None
         else:
             print('\033[31m' + '!! Upload failed for ' +
-                  upload_dict['full_path']')
+                  upload_dict['full_path'])
             id = None
             title = None
             file_name = upload_dict['name']
