@@ -109,7 +109,7 @@ class Database(object):
             os.mkdir('pneumatic_csv')
         else:
             pass
-        self.csv_name = 'dc-output' + timestamp + '.csv'
+        self.csv_name = 'dc-output-' + timestamp + '.csv'
         self.csv_full_path = os.path.join('pneumatic_csv', self.csv_name)
 
         # Query the database and write the rows to the CSV.
@@ -131,8 +131,8 @@ class Database(object):
                 row_counter += 1
             conn.close()
 
-        print('\nCSV file created. ' + str(row_counter) + ' database ' +
-              'records were exported to ' + self.csv_full_path + '\n')
+        print('\n* CSV file created. ' + str(row_counter) + ' database ' +
+              'records were exported to ' + self.csv_full_path)
 
     def cleanup_empty_db(self, db_name):
         """
@@ -145,7 +145,7 @@ class Database(object):
         conn.close()
 
         if record_count == 0:
-            print('\n\033[36mThe uploads database contains no records. It ' +
+            print('\n\033[36m* The uploads database contains no records. It ' +
                   'will be deleted to reduce clutter.')
             os.remove(db_name)
         else:
@@ -155,6 +155,6 @@ class Database(object):
         """
         Prints name of the database.
         """
-        print('\nUpload responses from the DocumentCloud API are stored in ' +
+        print('\n* Upload responses from the DocumentCloud API are stored in ' +
               'a SQLite database file.\nYou\'ll find it in your current ' +
               'directory at:\n' + self.db_full_path)

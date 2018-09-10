@@ -4,7 +4,9 @@ Changelog
 Development
 -------------------------
 
-* Confirm Python 3.6 support
+* Improve message formatting.
+* Confirm Python 3.6 and 3.7 support.
+* Expand unsupported filetypes to exclude from import list.
 
 0.1.7 - November 24, 2016
 -------------------------
