@@ -48,7 +48,7 @@ class Database(object):
                        ''')
             conn.commit()
             conn.close()
-            print('\033[36m* Uploads database created at: ' +
+            print('\033[36m* New uploads database created at: ' +
                   self.db_full_path)
         else:
             pass
@@ -90,6 +90,8 @@ class Database(object):
         """
         Outputs the contents of a SQLite database to CSV.
         """
+        print('\n\033[36mDump to CSV')
+
         timestamp = self.utils.timestamp()
 
         # We can pass in a db name or use the one in the current session.
@@ -131,8 +133,8 @@ class Database(object):
                 row_counter += 1
             conn.close()
 
-        print('\n* CSV file created. ' + str(row_counter) + ' database ' +
-              'records were exported to ' + self.csv_full_path)
+        print('\033[36m* CSV file created. ' + str(row_counter) +
+              ' database records were exported to ' + self.csv_full_path)
 
     def cleanup_empty_db(self, db_name):
         """
@@ -145,8 +147,8 @@ class Database(object):
         conn.close()
 
         if record_count == 0:
-            print('\n\033[36m* The uploads database contains no records. It ' +
-                  'will be deleted to reduce clutter.')
+            print('\n\033[36mCleanup\n* The new uploads database contains ' +
+                  'no records. Deleting it to reduce clutter.')
             os.remove(db_name)
         else:
             pass
@@ -155,6 +157,6 @@ class Database(object):
         """
         Prints name of the database.
         """
-        print('\n* Upload responses from the DocumentCloud API are stored in ' +
-              'a SQLite database file.\nYou\'ll find it in your current ' +
-              'directory at:\n' + self.db_full_path)
+        print('\n\033[36mDatabase Name\n* Responses from the DocumentCloud' +
+              'API are stored in a SQLite database in your current ' +
+              'directory at: ' + self.db_full_path)

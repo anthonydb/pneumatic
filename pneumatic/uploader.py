@@ -35,12 +35,13 @@ class DocumentCloudUploader(object):
         # Welcome users and test credentials
         print('\n\033[36mWelcome to pneumatic, a bulk uploader for ' +
               'DocumentCloud (https://www.documentcloud.org)\n\n' +
-              'Initializing ...\n')
+              'Initializing ...')
         if self.credential_test() == 200:
             print('\033[36m* Login credentials confirmed')
         else:
             print('\033[31mERROR: \033[0mYour username or password seems ' +
-                  'to be incorrect.\nPlease check them and try again.\n')
+                  'to be incorrect.\nPlease check them and try again.\n\n' +
+                  '\033[36mExiting pneumatic.\033[0m\n')
             sys.exit()
 
         # Initialize helper classes
@@ -61,6 +62,7 @@ class DocumentCloudUploader(object):
         """
         Confirm login credentials using simple search API endpoint.
         """
+        print('\033[36m* Confirming your DocumentCloud login credentials')
         r = requests.get(self.base_uri + 'search.json?q=test')
         return r.status_code
 
@@ -140,7 +142,7 @@ class DocumentCloudUploader(object):
         # Ask user to continue.
         response = input('Begin upload? \033[0mY/n: ')
         if response.lower() == 'y':
-            pass
+            print('\n')
         else:
             sys.exit()
 
@@ -322,7 +324,7 @@ class DocumentCloudUploader(object):
         else:
             db = self.db.db_full_path
 
-        print('\nUpdating each document in ' + db + ' with page count ' +
+        print('\n\033[36mUpdate Processed Files\n* Updating documents in ' + db + ' with page count ' +
               'and file hash data.')
 
         # Generate list of API get requests for successfully uploaded document

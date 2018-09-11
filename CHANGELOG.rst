@@ -5,8 +5,9 @@ Development
 -------------------------
 
 * Improve message formatting.
-* Confirm Python 3.6 and 3.7 support.
+* Test, confirm Python 3.6 and 3.7 support.
 * Expand unsupported filetypes to exclude from import list.
+* Improve CSV output file name format.
 
 0.1.7 - November 24, 2016
 -------------------------
