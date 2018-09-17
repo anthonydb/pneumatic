@@ -25,7 +25,7 @@ class DocumentCloudUploader(object):
         self.base_uri = 'https://' + username + ':' + password +\
                         '@www.documentcloud.org/api/'
         self.headers = {
-            'User-Agent': 'pneumatic/0.1.6',
+            'User-Agent': 'pneumatic/0.1.8',
             'From': self.username
         }
 
@@ -142,7 +142,7 @@ class DocumentCloudUploader(object):
         # Ask user to continue.
         response = input('Begin upload? \033[0mY/n: ')
         if response.lower() == 'y':
-            print('\n')
+            pass
         else:
             sys.exit()
 

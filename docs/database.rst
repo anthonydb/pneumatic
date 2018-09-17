@@ -31,7 +31,7 @@ After you initiate a ``DocumentCloudUploader`` object and begin the upload, you 
 Viewing database contents
 -------------------------
 
-There are number of tools available for viewing and querying the SQLite database's contents. One example that's simple to use is the `SQLite Manager <https://addons.mozilla.org/en-US/firefox/addon/sqlite-manager/>`_ browser plugin for Firefox.
+There are number of tools available for viewing and querying the SQLite database's contents. One example that's simple to use is the `DB Browser for SQLite <http://sqlitebrowser.org/>`_ GUI app, available for Windows and macOS. If you prefer to work from the command line, see the `SQLite command line app <https://sqlite.org/cli.html>`_ documentation.
 
 pneumatic also provides a method to dump the database to a CSV file, which you can then load into Excel or other applications. If you choose to do so in the same script where you have initiated an upload client, use the following:
 

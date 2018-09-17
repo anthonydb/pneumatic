@@ -1,11 +1,11 @@
 Changelog
 =========
 
-Development
--------------------------
+0.1.8 - September 17, 2018
+--------------------------
 
 * Improve message formatting.
-* Test, confirm Python 3.6 and 3.7 support.
+* Confirm Python 3.6 and 3.7 support.
 * Expand unsupported filetypes to exclude from import list.
 * Improve CSV output file name format.
 
