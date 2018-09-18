@@ -157,6 +157,6 @@ class Database(object):
         """
         Prints name of the database.
         """
-        print('\n\033[36mDatabase Name\n* Responses from the DocumentCloud' +
+        print('\n\033[36mDatabase Name\n* Responses from the DocumentCloud ' +
               'API are stored in a SQLite database in your current ' +
               'directory at: ' + self.db_full_path)
