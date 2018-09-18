@@ -140,7 +140,7 @@ class DocumentCloudUploader(object):
               str(docs_to_exclude) + ' file(s) will be excluded.')
 
         # Ask user to continue.
-        response = input('Begin upload? \033[0mY/n: ')
+        response = input('Begin upload? Y/n: ')
         if response.lower() == 'y':
             pass
         else:
