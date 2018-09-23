@@ -27,7 +27,7 @@ setup(
     ],
     url='http://pneumatic.readthedocs.io/en/latest/',
     author='Anthony DeBarros',
-    author_email='adebarros@gmail.com',
+    author_email='practicalsqlbook@gmail.com',
     license='MIT',
     packages=['pneumatic'],
     install_requires=[

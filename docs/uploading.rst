@@ -47,9 +47,9 @@ pneumatic handles all of the parameters supported by DocumentCloud's upload endp
 * ``related_article``: string; URL of an article related to the files.
 * ``published_url``: string: URL of the page where the documents are published.
 * ``access``: string; use ``access='public'`` to make documents publicly viewable upon upload. Default is private.
-* ``project``: string; ID of a project.
+* ``project``: string; ID of a project. You can find the project ID in the DocumentCloud interface by clicking the pencil icon next to the project name. The ID is listed in the dialog that pops up.
 * ``data``: dictionary of keys and values to tag documents. Example: ``data={'type': 'government', 'action': 'lawsuit'}``
-* ``secure``: boolean; set to ``secure=True`` if you want to prevent DocumentCloud from passing your document's text through the OpenCalais API.
+* ``secure``: boolean; set to ``secure=True`` if you want to prevent DocumentCloud from passing your document's text through the OpenCalais API, which DocumentCloud uses for entity extraction.
 * ``force_ocr``: boolean; set to ``force_ocr=True`` to have DocumentCloud OCR your documents even if they contain a text layer.
 
 For more information on these parameters, consult the `DocumentCloud API documentation <https://www.documentcloud.org/help/api#upload-documents>`_

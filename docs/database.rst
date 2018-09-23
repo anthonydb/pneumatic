@@ -33,7 +33,7 @@ Viewing database contents
 
 There are number of tools available for viewing and querying the SQLite database's contents. One example that's simple to use is the `DB Browser for SQLite <http://sqlitebrowser.org/>`_ GUI app, available for Windows and macOS. If you prefer to work from the command line, see the `SQLite command line app <https://sqlite.org/cli.html>`_ documentation.
 
-pneumatic also provides a method to dump the database to a CSV file, which you can then load into Excel or other applications. If you choose to do so in the same script where you have initiated an upload client, use the following:
+pneumatic also provides a method to dump the database to a CSV file, which you can open with Excel or other applications. To dump the database to CSV in the same script where you initiated an upload client, use the following:
 
 .. code-block:: python
 
@@ -51,17 +51,11 @@ If you're coming back to an old database, or you forgot to dump the CSV while th
 Updating database contents
 --------------------------
 
-The API response to a DocumentCloud upload does not include an actual value for ``pages`` or ``file_hash``. These are calculated as part of DocumentCloud's processing of the document. Once your documents are finished processing, you can use pneumatic to go back and retrieve those values with the ``update_processed_files`` method.
+The API response to a DocumentCloud upload does not include values for ``pages`` or ``file_hash``. These are calculated as part of DocumentCloud's processing of the document. Once your documents are finished processing, you can use pneumatic to  retrieve those values by using the ``update_processed_files`` method.
 
-You can use the method within a current session, which will update the database active in the session, or you can pass in the name of any other database file pneumatic created.
+You can use the method in a current session, which will update the database active in the session, or you can pass in the name of any other database file pneumatic created.
 
-To use within the current session:
-
-.. code-block:: python
-
-    uploader.update_processed_files()
-
-To come back to an older database and process it:
+To process an older database:
 
 .. code-block:: python
 
@@ -70,5 +64,10 @@ To come back to an older database and process it:
     uploader = DocumentCloudUploader('person@example.com', 'your-password')
     uploader.update_processed_files('path/to/file.db')
 
-Currently, only ``title``, ``pages`` and ``file_hash`` are updated.
+To use within the current session:
 
+.. code-block:: python
+
+    uploader.update_processed_files()
+
+Note that using this method within a current session may not retrieve all file information if it's run before files are done processing.
