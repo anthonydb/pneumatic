@@ -34,5 +34,6 @@ setup(
         'requests',
         'colorama'
     ],
+    exclude_package_data={'': ['.DS_Store']},
     zip_safe=False
 )
