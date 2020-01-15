@@ -22,8 +22,7 @@ class DocumentCloudUploader(object):
     def __init__(self, username, password):
         self.username = username
         self.password = password
-        self.base_uri = 'https://' + username + ':' + password +\
-                        '@www.documentcloud.org/api/'
+        self.base_uri = 'https://www.documentcloud.org/api/'
         self.headers = {
             'User-Agent': 'pneumatic/0.1.8',
             'From': self.username
@@ -63,7 +62,7 @@ class DocumentCloudUploader(object):
         Confirm login credentials using simple search API endpoint.
         """
         print('\033[36m* Confirming your DocumentCloud login credentials')
-        r = requests.get(self.base_uri + 'search.json?q=test')
+        r = requests.get(self.base_uri + 'search.json?q=test', auth=(self.username, self.password))
         return r.status_code
 
     def log_exclusion(self, name, full_path, exclude_reason):
@@ -160,7 +159,8 @@ class DocumentCloudUploader(object):
         r = requests.post(self.base_uri + 'upload.json',
                           params=upload_dict['payload'],
                           files=files,
-                          headers=self.headers)
+                          headers=self.headers,
+                          auth=(self.username, self.password))
 
         # Check for success and set variables accordingly.
         if r.status_code == 200:
