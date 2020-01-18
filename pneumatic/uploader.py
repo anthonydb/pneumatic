@@ -281,7 +281,7 @@ class DocumentCloudUploader(object):
         Request a document and update the database with results
         """
 
-        r = requests.get(url, headers=self.headers)
+        r = requests.get(url, headers=self.headers, auth=(self.username, self.password))
 
         if r.status_code == 200:
             # update db
