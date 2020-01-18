@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.1.9 - January 18, 2020
+--------------------------
+
+* Fix issue with authenticating API credentials via Requests. (`#20 <https://github.com/anthonydb/pneumatic/issues/20>`_)
+* Disable multiprocessing for now. (`#21 <https://github.com/anthonydb/pneumatic/issues/21>`_)
+* Confirm Python 3.8 support.
+
 0.1.8 - September 23, 2018
 --------------------------
 
