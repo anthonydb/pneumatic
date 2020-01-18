@@ -8,10 +8,10 @@ pneumatic's name is inspired by the pneumatic dispatch systems in newsrooms of y
 Features
 --------
 
-- Catalogs the API response for each upload in a SQLite database along with the file's canonical URL.
-_ Post-processing, can update the SQLite database with each document's page count and file hash.
-- Dumps the SQLite data to a CSV if you wish.
-- Prevents inadvertent submission of file types DocumentCloud doesn't handle, such as audio.
+* Catalogs the API response for each upload in a SQLite database along with the file's canonical URL.
+* Post-processing, can update the SQLite database with each document's page count and file hash.
+* Dumps the SQLite data to a CSV if you wish.
+* Prevents inadvertent submission of file types DocumentCloud doesn't handle, such as audio.
 
 Links
 -----
