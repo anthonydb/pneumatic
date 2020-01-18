@@ -67,8 +67,3 @@ Upload results database
 DocumentCloud's API returns data for each file uploaded, and pneumatic catalogs key pieces of this data in a SQLite database. A new, timestamped SQLite database is created for each upload session you initiate.
 
 You'll find the databases in a ``pneumatic_db`` directory located in the directory you specified for uploads. See the Database Features documentation for additional information.
-
-Multiprocessing support
------------------------
-
-If you're using macOS or Linux, pneumatic uses the Python multiprocessing library to more rapidly submit files to the DocumentCloud API. Multiprocessing is not currently supported under Windows. Note that this speed improvement does not impact actual processing time for files on DocumentCloud.
