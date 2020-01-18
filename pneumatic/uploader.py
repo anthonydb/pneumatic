@@ -260,15 +260,21 @@ class DocumentCloudUploader(object):
                 # print(doc['payload'])
                 cleared_uploads.append(doc)
 
-        # Support multiprocessing on Linux-based systems
-        if os.name == 'posix':
-            # Create pool of workers. Just 4 for now, please.
-            p = Pool(processes=4)
-            p.map(self.request, cleared_uploads)
-        # Otherwise, upload sequentially
-        elif os.name == 'nt':
-            for upload_dict in cleared_uploads:
-                self.request(upload_dict)
+        # # Support multiprocessing on Linux-based systems
+        # # Note: This is broken as of Python 3.8 and needs a refactor
+        # # Multiprocessing in this context is not very useful anyway in hindsight
+
+        # if os.name == 'posix':
+        #     # Create pool of workers. Just 4 for now, please.
+        #     p = Pool(processes=4)
+        #     p.map(self.request, cleared_uploads)
+        # # Otherwise, upload sequentially
+        # elif os.name == 'nt':
+        #     for upload_dict in cleared_uploads:
+        #         self.request(upload_dict)
+
+        for upload_dict in cleared_uploads:
+            self.request(upload_dict)
 
     def request_get(self, db, url):
         """
